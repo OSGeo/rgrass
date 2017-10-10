@@ -83,10 +83,9 @@ readVECT <- function(vname, layer, type=NULL, plugin=NULL,
             # rgdal::ogrDrivers()
     ogrDw <- gsub(" ", "_", ogrD$name[ogrD$write])
 # guess GRASS v.out.ogr capability from rgdal
-    ogrDGRASS <- execGRASS("v.in.ogr", flags=ifelse(ignore.stderr, c("f",
+    ogrDGRASSs <- execGRASS("v.external", flags=ifelse(ignore.stderr, c("f",
                            "quiet"), "f"), intern=TRUE,
-                           ignore.stderr=ignore.stderr)
-    ogrDGRASSs <- gsub(" ", "_", sapply(strsplit(ogrDGRASS, ": "), "[", 2))
+                          ignore.stderr=ignore.stderr)
     candDrivers <- gsub(" ", "_", sort(intersect(ogrDGRASSs, ogrDw)))
     if (!is.null(driver)) {
         driver <- gsub(" ", "_", driver)
