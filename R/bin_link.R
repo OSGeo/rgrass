@@ -66,7 +66,7 @@ readRAST <- function(vname, cat=NULL, ignore.stderr=get.ignore.stderrOption(),
 
 	if (!R_in_sp) stop("no stars import yet")
         
-	p4 <- sp::CRS(getLocationProj())
+	p4 <- sp::CRS(getLocationProj(g.proj_WKT=FALSE))
 
         reslist <- vector(mode="list", length=length(vname))
         names(reslist) <- vname
