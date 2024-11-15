@@ -34,15 +34,16 @@ jobs:
         apt-get update
         apt-get install -y r-base
 
-    - name: Download test dataset
-      run: |
-        wget https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip -O /tmp/nc_basic_spm_grass7.zip
-        unzip /tmp/nc_basic_spm_grass7.zip -d /tmp/grassdb
-
     - name: Install R dependencies
       run: |
         R -e "install.packages('remotes')"
         R -e "remotes::install_deps(dependencies = TRUE)"
+
+    - name: Download test dataset
+      run: |
+        wget https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip -O /tmp/nc_basic_spm_grass7.zip
+        unzip /tmp/nc_basic_spm_grass7.zip -d /tmp/grassdb
+        rm /tmp/nc_basic_spm_grass7.zip
 
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
