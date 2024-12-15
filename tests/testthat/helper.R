@@ -1,7 +1,7 @@
 download_nc_basic <- function() {
   if (Sys.info()["sysname"] == "Linux") {
     tmpdir <- "/tmp"
-  } else if (Sys.info()["sysname"] == "Darwin") {
+  } else{
     tmpdir <- tempdir()
   }
 
@@ -31,14 +31,10 @@ download_nc_basic <- function() {
 
 get_gisbase <- function() {
   if (Sys.info()["sysname"] == "Linux") {
-    gisBase <- try(system2("grass", "--config path", stdout = TRUE))
-  } else if (Sys.info()["sysname"] == "Darwin") {
-    gisBase <- Sys.getenv("GISBASE")
+    gisBase <- system2("grass", "--config path", stdout = TRUE)
+  } else {
+    gisBase <- Sys.getenv("GRASS_INSTALLATION")
   }
-  
-  if (inherits(gisBase, "try-catch")) {
-    gisBase <- NULL
-  }
-  
+
   return(gisBase)
 }

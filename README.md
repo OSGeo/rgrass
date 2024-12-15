@@ -1,6 +1,6 @@
 # rgrass
 
-[![CRAN](http://www.r-pkg.org/badges/version/rgrass)](https://cran.r-project.org/package=rgrass)
+[![CRAN status](https://www.r-pkg.org/badges/version/rgrass)](https://CRAN.R-project.org/package=rgrass)
 [![Codecov test coverage](https://codecov.io/gh/stevenpawley/rgrass/graph/badge.svg)](https://app.codecov.io/gh/stevenpawley/rgrass)
 
 ### Interface Between GRASS Geographical Information System and R
