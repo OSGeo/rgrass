@@ -43,4 +43,10 @@ testthat::test_that("testing initGRASS", {
   # Test gmeta2grd
   meta3 <- gmeta2grd()
   expect_s4_class(meta3, "GridTopology")
+
+  # Test just returning the projection
+  meta4 <- getLocationProj()
+  expect_equal(crs(meta4, describe = TRUE)$code, "3358")
+  meta4 <- getLocationProj(g.proj_WKT = FALSE)
+  expect_equal(meta4, paste(crs("epsg:3358", proj = TRUE), "+type=crs"))
 })
