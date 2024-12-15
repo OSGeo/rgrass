@@ -33,7 +33,7 @@ get_gisbase <- function() {
   if (Sys.info()["sysname"] == "Linux") {
     gisBase <- try(system2("grass", "--config path", stdout = TRUE))
   } else if (Sys.info()["sysname"] == "Darwin") {
-    gisBase <- "/Applications/GRASS-8.5.app/Contents/Resources"
+    gisBase <- Sys.getenv("GISBASE")
   }
   
   if (inherits(gisBase, "try-catch")) {
