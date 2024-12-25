@@ -169,10 +169,12 @@ vDataCount <- function(vname, layer, ignore.stderr = NULL) {
 vect2neigh <- function(
     vname, ID = NULL, ignore.stderr = NULL, remove = TRUE,
     vname2 = NULL, units = "k") {
+
   if (get.suppressEchoCmdInFuncOption()) {
     inEchoCmd <- get.echoCmdOption()
     tull <- set.echoCmdOption(FALSE)
   }
+
   if (is.null(ignore.stderr)) {
     ignore.stderr <- get("ignore.stderr", envir = .GRASS_CACHE)
   }
@@ -180,12 +182,12 @@ vect2neigh <- function(
 
   vinfo <- vInfo(vname)
   types <- names(vinfo)[which(vinfo > 0)]
+
   if (length(grep("areas", types)) == 0) {
     stop("Vector object not of area type")
   }
 
   n <- vDataCount(vname, ignore.stderr = ignore.stderr)
-
 
   if (!is.null(ID)) {
     if (!is.character(ID)) stop("ID not character string")
@@ -220,9 +222,11 @@ vect2neigh <- function(
     }
   }
   vname2_was_null <- FALSE
+
   if (is.null(vname2)) {
     pid <- as.integer(round(runif(1, 1, 1000)))
     vname2 <- paste(vname, pid, sep = "")
+
     tull <- execGRASS("g.remove",
       type = "vector", name = vname2, flags = "f",
       intern = TRUE, ignore.stderr = ignore.stderr
@@ -324,7 +328,7 @@ vect2neigh <- function(
   if (remove) {
     tull <- execGRASS("g.remove",
       name = paste(vname2, vname2a, sep = ","), type = "vector",
-      intern = TRUE, ignore.stderr = ignore.stderr
+      intern = TRUE, ignore.stderr = ignore.stderr, flags = "f"
     )
   }
 

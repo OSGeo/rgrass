@@ -25,7 +25,8 @@ test_that("testing read_VECT", {
   expect_s4_class(schs, "SpatVector")
   expect_equal(crs(schs, describe = TRUE)$code, "3358")
 
-  write_VECT(schs, "newsch", flags = c("o", "overwrite"))
+  schs <- schs[, -which(names(schs) == "cat")]
+  write_VECT(schs, "newsch", flags = "overwrite")
   newschs <- read_VECT("newsch")
   expect_s4_class(newschs, "SpatVector")
 
@@ -39,7 +40,7 @@ test_that("testing read_VECT", {
 test_that("testing vect2neigh", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
 
-  cen_neig <- vect2neigh("census")
+  cen_neig <- vect2neigh("census", ignore.stderr = TRUE)
   expect_s3_class(cen_neig, c("data.frame", "GRASSneigh", "spatial.neighbour"))
   expect_equal(names(cen_neig), c("left", "right", "length"))
 })
