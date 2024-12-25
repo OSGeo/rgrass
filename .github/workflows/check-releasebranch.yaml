@@ -27,7 +27,7 @@ jobs:
     - name: Install system deps
       run: |
         apt-get update
-        apt-get install -y pandoc-citeproc qpdf
+        apt-get install -y pandoc pandoc-citeproc qpdf libgdal-dev libudunits2-dev libharfbuzz-dev libfribidi-dev
 
     - name: Install R
       run: |
@@ -37,7 +37,7 @@ jobs:
     - name: Install R dependencies
       run: |
         R -e "install.packages('remotes')"
-        R -e "remotes::install_deps(dependencies = TRUE)"
+        R -e "remotes::install_deps(dependencies = TRUE, repos = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest')"
 
     - name: Download test dataset
       run: |
@@ -47,7 +47,7 @@ jobs:
 
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
-        extra-packages: any::rcmdcheck
+        extra-packages: any::rcmdcheck, any::terra
         needs: check
 
     - uses: r-lib/actions/check-r-package@v2

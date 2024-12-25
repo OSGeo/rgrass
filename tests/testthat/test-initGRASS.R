@@ -35,7 +35,7 @@ testthat::test_that("testing initGRASS", {
   expect_equal(meta$LOCATION_NAME, testdata$location)
   expect_equal(meta$projection, "99")
   expect_equal(crs(meta$proj4, describe = TRUE)$code, "3358")
-  
+
   # Test old proj4 output from grass
   meta2 <- gmeta(g.proj_WKT = FALSE)
   expect_equal(meta2$proj4, paste(crs("epsg:3358", proj = TRUE), "+type=crs"))
