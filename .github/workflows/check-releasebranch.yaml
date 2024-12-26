@@ -10,7 +10,7 @@ name: releasebranch_8_4-ubuntu
 permissions: read-all
 
 jobs:
-  R-CMD-check:
+  R-CMD-check-releasebranch:
     runs-on: ubuntu-latest
 
     env:
@@ -24,31 +24,45 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - uses: r-lib/actions/setup-pandoc@v2
+
     - name: Install system deps
       run: |
         apt-get update
-        apt-get install -y pandoc pandoc-citeproc qpdf libgdal-dev libudunits2-dev libharfbuzz-dev libfribidi-dev
+        apt-get upgrade
+        apt-get install -y \
+          libudunits2-dev \
+          libharfbuzz-dev \
+          libfribidi-dev \
+          libsqlite3-dev \
+          libproj-dev \
+          libgeos-dev \
+          gdal-bin \
+          libmysqlclient-dev \
+          libgdal-dev \
+          libfontconfig1-dev \
+          qpdf
 
     - name: Install R
       run: |
         apt-get update
-        apt-get install -y r-base
+        apt-get install -y r-base-dev
+
+    - name: Configure RSPM in .Renviron
+      run: |
+        echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))' >> ~/.Rprofile
+        echo 'options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), R.version["platform"], R.version["arch"], R.version["os"])))' >> ~/.Rprofile
 
     - name: Install R dependencies
       run: |
-        R -e "install.packages('remotes')"
-        R -e "remotes::install_deps(dependencies = TRUE, repos = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest')"
+        R -e "install.packages(c('remotes', 'rcmdcheck'))"
+        R -e "remotes::install_deps(dependencies = TRUE)"
 
     - name: Download test dataset
       run: |
         wget https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip -O /tmp/nc_basic_spm_grass7.zip
         unzip /tmp/nc_basic_spm_grass7.zip -d /tmp/grassdb
         rm /tmp/nc_basic_spm_grass7.zip
-
-    - uses: r-lib/actions/setup-r-dependencies@v2
-      with:
-        extra-packages: any::rcmdcheck, any::terra
-        needs: check
 
     - uses: r-lib/actions/check-r-package@v2
       with:
