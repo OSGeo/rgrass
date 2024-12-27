@@ -189,7 +189,7 @@ getLocationProj <- function(ignore.stderr = FALSE, g.proj_WKT = NULL) {
   }
   if (WKT2 && !old_proj) {
     res <- paste(execGRASS("g.proj",
-      flags = c("w"), intern = TRUE,
+      flags = c("w", "e"), intern = TRUE,
       ignore.stderr = ignore.stderr
     ), collapse = "\n")
     if (substr(res, 1, 5) != "ERROR") {

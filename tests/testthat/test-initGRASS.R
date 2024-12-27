@@ -49,4 +49,8 @@ testthat::test_that("testing initGRASS", {
   expect_equal(crs(meta4, describe = TRUE)$code, "3358")
   meta4 <- getLocationProj(g.proj_WKT = FALSE)
   expect_equal(meta4, paste(crs("epsg:3358", proj = TRUE), "+type=crs"))
+
+  gLP <- getLocationProj()
+  sp::CRS(gLP)
+
 })

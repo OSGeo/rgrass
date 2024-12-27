@@ -36,7 +36,7 @@ test_that("testing read_RAST using terra", {
 })
 
 test_that("testing read_RAST using sp", {
-  skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")  
 
   nc_basic <- read_RAST("landuse", cat = TRUE, return_format = "SGDF")
   lvls <- levels(nc_basic$landuse)
