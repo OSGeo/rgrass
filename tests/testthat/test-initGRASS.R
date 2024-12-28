@@ -1,6 +1,5 @@
 library(testthat)
 library(terra)
-library(sp)
 source("helper.R")
 
 # setup
@@ -25,13 +24,8 @@ test_that("testing basic initGRASS", {
   expect_equal(crs(loc$proj4, describe = TRUE)$name, "NAD83(HARN) / North Carolina")
 })
 
-test_that("testing initialization from SGDF", {
-  data(meuse.grid)
-  coordinates(meuse.grid) <- c("x", "y")
-  gridded(meuse.grid) = TRUE
-  proj4string(meuse.grid) <- CRS("epsg:28992")  
-  meuse.grid = as(meuse.grid, "SpatialGridDataFrame")
-
-  loc <- initGRASS(gisBase = gisBase, SG = meuse.grid, override = TRUE)
+test_that("testing initialization from SpatRaster", {
+  meuse_grid <- rast(system.file("ex/meuse.tif", package = "terra"))
+  loc <- initGRASS(gisBase = gisBase, SG = meuse_grid, override = TRUE)
   expect_s3_class(loc, "gmeta")
 })
