@@ -15,9 +15,8 @@ jobs:
     strategy:
       matrix: 
         container: [
-          "osgeo/grass-gis:releasebranch_8_4-ubuntu"
-          # "osgeo/grass-gis:main-ubuntu", 
-          # "mundialis/grass-py3-pdal:7.8.8-ubuntu"
+          "osgeo/grass-gis:releasebranch_8_4-ubuntu",
+          "osgeo/grass-gis:main-ubuntu"
         ]
     
     container:
@@ -30,7 +29,6 @@ jobs:
     - name: Install system deps
       run: |
         apt-get update
-        apt-get upgrade
         apt-get install -y \
           libudunits2-dev \
           libharfbuzz-dev \
@@ -67,10 +65,10 @@ jobs:
         unzip /tmp/nc_basic_spm_grass7.zip -d /tmp/grassdb
         rm /tmp/nc_basic_spm_grass7.zip
       
-    - name: Run R CMD check
-      run: |
-        R -e "rcmdcheck::rcmdcheck(args = c('--no-manual', '--no-build-vignettes'), error_on = 'error', check_dir = 'check')"
+    # - name: Run R CMD check
+    #   run: |
+    #     R -e "rcmdcheck::rcmdcheck(args = c('--no-manual', '--no-build-vignettes'), error_on = 'error', check_dir = 'check')"
     
-    # - uses: r-lib/actions/check-r-package@v2
-    #   with:
-    #     upload-snapshots: true
+    - uses: r-lib/actions/check-r-package@v2
+      with:
+        upload-snapshots: true

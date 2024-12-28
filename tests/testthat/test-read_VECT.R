@@ -21,12 +21,13 @@ test_that("testing read_VECT", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
 
   # test basic read/write
-  schs <- read_VECT("schools")
+  schs <- read_VECT("schools", use_gdal_grass_driver = FALSE)
   expect_s4_class(schs, "SpatVector")
   expect_equal(crs(schs, describe = TRUE)$code, "3358")
 
   schs <- schs[, -which(names(schs) == "cat")]
-  write_VECT(schs, "newsch", flags = "overwrite")
+  write_VECT(schs, "newsch", flags = c("o", "overwrite"))
+
   newschs <- read_VECT("newsch")
   expect_s4_class(newschs, "SpatVector")
 
