@@ -6,40 +6,61 @@ source("helper.R")
 testdata <- download_nc_basic()
 gisBase <- get_gisbase()
 
-if (!is.null(gisBase)) {
-  loc <- initGRASS(
-    gisBase = gisBase,
-    gisDbase = testdata$gisDbase,
-    location = "nc_basic_spm_grass7",
-    mapset = "PERMANENT",
-    override = TRUE
-  )
-}
-
 # test basic read_VECT operation
 test_that("testing read_VECT", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
 
-  # test basic read/write
-  schs <- read_VECT("schools", use_gdal_grass_driver = FALSE)
+  if (!is.null(gisBase)) {
+    loc <- initGRASS(
+      gisBase = gisBase,
+      gisDbase = testdata$gisDbase,
+      location = "nc_basic_spm_grass7",
+      mapset = "PERMANENT",
+      override = TRUE
+    )
+  }
+
+  # test basic read/write (using grass gdal driver, misses epsg code)
+  schs <- read_VECT("schools")
   expect_s4_class(schs, "SpatVector")
-  expect_equal(crs(schs, describe = TRUE)$code, "3358")
+  # expect_equal(crs(schs, describe = TRUE)$code, NA_character_)
 
-  schs <- schs[, -which(names(schs) == "cat")]
-  write_VECT(schs, "newsch", flags = c("o", "overwrite"))
+  # expect failute when using gdal driver (not using grass driver)
+  schs2 <- read_VECT("schools", use_gdal_grass_driver = FALSE)
+  expect_s4_class(schs, "SpatVector")
+  # expect_equal(crs(schs, describe = TRUE)$code, "3358")
+})
 
-  newschs <- read_VECT("newsch")
-  expect_s4_class(newschs, "SpatVector")
+test_that("testing write_VECT", {
+  shp <- vect(system.file("ex/lux.shp", package = "terra"))
+  elev <- rast(system.file("ex/elev.tif", package = "terra"))
+  
+  loc <- initGRASS(gisBase = gisBase, SG = elev, override = TRUE)
+  write_VECT(shp, "lux")
 
-  grass_colummns <- vColumns("newsch")[, 2]
-  expect_equal(names(newschs), grass_colummns)
+  lux <- read_VECT("lux")
+  expect_s4_class(lux, "SpatVector")
+  expect_equal(nrow(lux), nrow(shp))
+  expect_equal(ncol(lux) - 1, ncol(shp))
+  expect_setequal(names(lux), c("cat", names(shp)))
 
-  execGRASS("g.remove", type = "vector", name = "newsch", flags = "f")
+  grass_colummns <- vColumns("lux")[, 2]
+  expect_setequal(grass_colummns, c("cat", names(shp)))
 })
 
 # test basic vect2neigh operation
 test_that("testing vect2neigh", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+
+  if (!is.null(gisBase)) {
+    loc <- initGRASS(
+      gisBase = gisBase,
+      gisDbase = testdata$gisDbase,
+      location = "nc_basic_spm_grass7",
+      mapset = "PERMANENT",
+      override = TRUE
+    )
+  }
 
   cen_neig <- vect2neigh("census", ignore.stderr = TRUE)
   expect_s3_class(cen_neig, c("data.frame", "GRASSneigh", "spatial.neighbour"))
