@@ -101,12 +101,13 @@ test_that("testing options doGRASS, execGRASS, stringexecGRASS", {
   expect_equal(res, 0)
 
   # Test redirect (allows command to fail with only warning)
-  resERR <- execGRASS(
-    "r.stats",
-    input = "fire_blocksgg",
-    flags = c("C", "n"),
-    redirect = TRUE,
-    legacyExec = TRUE
+  expect_warning(
+    execGRASS(
+      "r.stats",
+      input = "fire_blocksgg",
+      flags = c("C", "n"),
+      redirect = TRUE,
+      legacyExec = TRUE
+    )
   )
-  expect_match(resERR, "ERROR:")
 })
