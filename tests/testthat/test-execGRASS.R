@@ -90,9 +90,23 @@ test_that("testing options doGRASS, execGRASS, stringexecGRASS", {
   res <- execGRASS("g.list", type = "raster", intern = TRUE)
   expect_type(res, "character")
   expect_equal(res, raster_maps)
-})
 
-# get.GIS_LOCK
-# set.GIS_LOCK
-# unset.GIS_LOCK
-# remove_GISRC
+  # Execute 'r.stats' with legacyExec
+  res <- execGRASS(
+    "r.stats",
+    input = "elevation",
+    flags = c("C", "n"),
+    legacyExec = TRUE
+  )
+  expect_equal(res, 0)
+
+  # Test redirect (allows command to fail with only warning)
+  resERR <- execGRASS(
+    "r.stats",
+    input = "fire_blocksgg",
+    flags = c("C", "n"),
+    redirect = TRUE,
+    legacyExec = TRUE
+  )
+  expect_match(resERR, "ERROR:")
+})
