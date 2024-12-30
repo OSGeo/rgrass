@@ -150,7 +150,7 @@ print.gmeta <- function(x, ...) {
 #' @export
 gmeta2grd <- function(ignore.stderr = FALSE) {
   if (!requireNamespace("sp", quietly = TRUE)) {
-    stop("sp required to creat a GridTopology object")
+    stop("sp required to create a GridTopology object")
   }
   G <- gmeta(ignore.stderr = ignore.stderr)
   cellcentre.offset <- c(G$w + (G$ewres / 2), G$s + (G$nsres / 2))

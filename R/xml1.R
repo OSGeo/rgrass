@@ -501,7 +501,7 @@ insert_required <- function(pcmd, parameters, pt, req, suppress_required) {
 #' @param ... for `execGRASS` and `doGRASS`, GRASS module parameters
 #'   given as R named arguments directly. For the `print` method, other
 #'   arguments to print method. The storage modes of values passed must match
-#'   thos required in GRASS, so a single GRASS string must be a character vector
+#'   those required in GRASS, so a single GRASS string must be a character vector
 #'   of length 1, a single GRASS integer must be an integer vector of length 1
 #'   (may be an integer constant such as 10L), and a single GRASS float must be
 #'   a numeric vector of length 1. For multiple values, use vectors of suitable
@@ -509,7 +509,7 @@ insert_required <- function(pcmd, parameters, pt, req, suppress_required) {
 #' @param parameters list of GRASS command parameters, used if GRASS parameters
 #'   are not given as R arguments directly; the two methods for passing GRASS
 #'   parameters may not be mixed. The storage modes of values passed must match
-#'   thos required in GRASS, so a single GRASS string must be a character vector
+#'   those required in GRASS, so a single GRASS string must be a character vector
 #'   of length 1, a single GRASS integer must be an integer vector of length 1
 #'   (may be an integer constant such as 10L), and a single GRASS float must be
 #'   a numeric vector of length 1. For multiple values, use vectors of suitable

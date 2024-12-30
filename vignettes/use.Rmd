@@ -173,7 +173,7 @@ The first argument to `initGRASS()` is `gisBase=`, which here we are passing the
 ```
 
 If the `gisBase` argument is missing, `initGRASS()` will do a minimal effort of guessing it.
-Firstly, if a `GRASS_INSTALLATION` environment variable is availabe, then its value will automatically be used for `gisBase`.
+Firstly, if a `GRASS_INSTALLATION` environment variable is available, then its value will automatically be used for `gisBase`.
 If not, then the system command `grass --config path` will be tried to get the value of `GISBASE` that corresponds to the GRASS installation in the system PATH (if any).
 
 As can be seen, `initGRASS()` creates not only environment and GRASS variables, but also many files in the location mapsets; `g.gisenv` also shows details:
