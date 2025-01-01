@@ -31,13 +31,27 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y grass-dev libgdal-dev libudunits2-dev libharfbuzz-dev libfribidi-dev
+  
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - name: Download test dataset
+        run: |
+          wget https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip -O /tmp/nc_basic_spm_grass7.zip
+          unzip /tmp/nc_basic_spm_grass7.zip -d /tmp/grassdb
+          rm /tmp/nc_basic_spm_grass7.zip  
+
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE, run_dont_run = TRUE)
+        run: |
+          gisBase <- system2("grass", "--config path", stdout = TRUE)
+          loc <- rgrass::initGRASS(gisBase = gisBase, gisDbase = "/tmp/grassdb", location = "nc_basic_spm_grass7", mapset = "PERMANENT", override = TRUE)
+          pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE, run_dont_run = TRUE)
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
