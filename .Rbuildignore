@@ -6,3 +6,6 @@ _pkgdown.yml
 ^\.Rproj\.user$
 ^\.github$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
