@@ -264,90 +264,6 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Read and print GRASS interface description for 'r.slope.aspect'</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">parseGRASS</span><span class="op">(</span><span class="st">"r.slope.aspect"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Assemble the 'r.slope.aspect' command with specified parameters as a string</span></span></span>
-<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"r.slope.aspect"</span>,</span></span>
-<span class="r-in"><span>    flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    elevation <span class="op">=</span> <span class="st">"elevation.dem"</span>,</span></span>
-<span class="r-in"><span>    slope <span class="op">=</span> <span class="st">"slope"</span>,</span></span>
-<span class="r-in"><span>    aspect <span class="op">=</span> <span class="st">"aspect"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Alternatively, specify parameters as a list</span></span></span>
-<span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>elevation <span class="op">=</span> <span class="st">"elevation"</span>,</span></span>
-<span class="r-in"><span>                 slope <span class="op">=</span> <span class="st">"slope"</span>,</span></span>
-<span class="r-in"><span>                 aspect <span class="op">=</span> <span class="st">"aspect"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span><span class="st">"r.slope.aspect"</span>,</span></span>
-<span class="r-in"><span>          flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>          parameters <span class="op">=</span> <span class="va">params</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Read and print GRASS interface description for 'r.buffer'</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">parseGRASS</span><span class="op">(</span><span class="st">"r.buffer"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Assemble the 'r.buffer' with specified parameters as as string</span></span></span>
-<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"r.buffer"</span>,</span></span>
-<span class="r-in"><span>    flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    input <span class="op">=</span> <span class="st">"schools"</span>,</span></span>
-<span class="r-in"><span>    output <span class="op">=</span> <span class="st">"bmap"</span>,</span></span>
-<span class="r-in"><span>    distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">15000</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Alternatively, specify parameters as a list</span></span></span>
-<span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    input <span class="op">=</span> <span class="st">"schools"</span>,</span></span>
-<span class="r-in"><span>    output <span class="op">=</span> <span class="st">"bmap"</span>,</span></span>
-<span class="r-in"><span>    distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">15000</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span><span class="st">"r.buffer"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>, parameters <span class="op">=</span> <span class="va">params</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Restore original echo command option</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="gmeta.html">set.echoCmdOption</a></span><span class="op">(</span><span class="va">echoCmdOption</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Try executing 'r.stats' command which will fail because "fire_blocksgg"</span></span></span>
-<span class="r-in"><span>  <span class="co"># does not exist in the mapset</span></span></span>
-<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span><span class="st">"r.stats"</span>, input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>      silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Execute 'r.stats' with legacyExec and print the result</span></span></span>
-<span class="r-in"><span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"r.stats"</span>,</span></span>
-<span class="r-in"><span>    input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>,</span></span>
-<span class="r-in"><span>    flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    legacyExec <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># If the command failed, retrieve error message</span></span></span>
-<span class="r-in"><span>  <span class="kw">if</span> <span class="op">(</span><span class="va">res</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="va">resERR</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"r.stats"</span>,</span></span>
-<span class="r-in"><span>      input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>,</span></span>
-<span class="r-in"><span>      flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>      redirect <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>      legacyExec <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">resERR</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Use 'stringexecGRASS' to run a command and print the result</span></span></span>
-<span class="r-in"><span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">stringexecGRASS</span><span class="op">(</span><span class="st">"r.stats -p -l input=geology"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu">stringexecGRASS</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"r.random.cells --overwrite --quiet output=samples distance=1000 ncells=100 seed=1"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Alternatively, run the same command using 'execGRASS'</span></span></span>
-<span class="r-in"><span>  <span class="fu">execGRASS</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"r.random.cells"</span>,</span></span>
-<span class="r-in"><span>    flags  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span>, <span class="st">"quiet"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    output <span class="op">=</span> <span class="st">"samples"</span>,</span></span>
-<span class="r-in"><span>    distance <span class="op">=</span> <span class="fl">1000</span>,</span></span>
-<span class="r-in"><span>    ncells <span class="op">=</span> <span class="fl">100L</span>,</span></span>
-<span class="r-in"><span>    seed <span class="op">=</span> <span class="fl">1L</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Command: r.slope.aspect </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Description: Generates raster maps of slope, aspect, curvatures and partial derivatives from an elevation raster map. Aspect is calculated counterclockwise from east. </span>
@@ -403,8 +319,37 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name: help [Print usage summary] {FALSE}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name: verbose [Verbose module output] {FALSE}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name: quiet [Quiet module output] {FALSE}</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Assemble the 'r.slope.aspect' command with specified parameters as a string</span></span></span>
+<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"r.slope.aspect"</span>,</span></span>
+<span class="r-in"><span>    flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    elevation <span class="op">=</span> <span class="st">"elevation.dem"</span>,</span></span>
+<span class="r-in"><span>    slope <span class="op">=</span> <span class="st">"slope"</span>,</span></span>
+<span class="r-in"><span>    aspect <span class="op">=</span> <span class="st">"aspect"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.slope.aspect --overwrite elevation=elevation.dem slope=slope aspect=aspect </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect --overwrite elevation=elevation.dem slope=slope aspect=aspect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect"</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Alternatively, specify parameters as a list</span></span></span>
+<span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>elevation <span class="op">=</span> <span class="st">"elevation"</span>,</span></span>
+<span class="r-in"><span>                 slope <span class="op">=</span> <span class="st">"slope"</span>,</span></span>
+<span class="r-in"><span>                 aspect <span class="op">=</span> <span class="st">"aspect"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span><span class="st">"r.slope.aspect"</span>,</span></span>
+<span class="r-in"><span>          flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          parameters <span class="op">=</span> <span class="va">params</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.slope.aspect --overwrite elevation=elevation slope=slope aspect=aspect </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect --overwrite elevation=elevation slope=slope aspect=aspect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect"</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Read and print GRASS interface description for 'r.buffer'</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">parseGRASS</span><span class="op">(</span><span class="st">"r.buffer"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Command: r.buffer </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Description: Creates a raster map showing buffer zones surrounding cells that contain non-NULL category values. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Keywords: raster, buffer </span>
@@ -426,22 +371,100 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name: help [Print usage summary] {FALSE}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name: verbose [Verbose module output] {FALSE}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name: quiet [Quiet module output] {FALSE}</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Assemble the 'r.buffer' with specified parameters as as string</span></span></span>
+<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"r.buffer"</span>,</span></span>
+<span class="r-in"><span>    flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    input <span class="op">=</span> <span class="st">"schools"</span>,</span></span>
+<span class="r-in"><span>    output <span class="op">=</span> <span class="st">"bmap"</span>,</span></span>
+<span class="r-in"><span>    distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">15000</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer"</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Alternatively, specify parameters as a list</span></span></span>
+<span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    input <span class="op">=</span> <span class="st">"schools"</span>,</span></span>
+<span class="r-in"><span>    output <span class="op">=</span> <span class="st">"bmap"</span>,</span></span>
+<span class="r-in"><span>    distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">15000</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span><span class="st">"r.buffer"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>, parameters <span class="op">=</span> <span class="va">params</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer"</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Restore original echo command option</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="gmeta.html">set.echoCmdOption</a></span><span class="op">(</span><span class="va">echoCmdOption</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Try executing 'r.stats' command which will fail because "fire_blocksgg"</span></span></span>
+<span class="r-in"><span>  <span class="co"># does not exist in the mapset</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span><span class="st">"r.stats"</span>, input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error in execGRASS("r.stats", input = "fire_blocksgg", flags = c("C",  : </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   The command:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> r.stats -C -n input=fire_blocksgg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> produced an error (1) during execution:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ERROR: Raster map &lt;fire_blocksgg&gt; not found</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Execute 'r.stats' with legacyExec and print the result</span></span></span>
+<span class="r-in"><span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"r.stats"</span>,</span></span>
+<span class="r-in"><span>    input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>,</span></span>
+<span class="r-in"><span>    flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    legacyExec <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># If the command failed, retrieve error message</span></span></span>
+<span class="r-in"><span>  <span class="kw">if</span> <span class="op">(</span><span class="va">res</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">resERR</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"r.stats"</span>,</span></span>
+<span class="r-in"><span>      input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>,</span></span>
+<span class="r-in"><span>      flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      redirect <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>      legacyExec <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">resERR</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>running command 'r.stats -C -n input=fire_blocksgg 2&gt;&amp;1' had status 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ERROR: Raster map &lt;fire_blocksgg&gt; not found"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"status")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Use 'stringexecGRASS' to run a command and print the result</span></span></span>
+<span class="r-in"><span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">stringexecGRASS</span><span class="op">(</span><span class="st">"r.stats -p -l input=geology"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu">stringexecGRASS</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"r.random.cells --overwrite --quiet output=samples distance=1000 ncells=100 seed=1"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "217 CZfg 35.83%" "262 CZlg 9.81%"  "270 CZig 34.04%" "405 CZbg 12.53%"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "583 CZve 1.07%"  "720 CZam 0.24%"  "766 CZg 0.35%"   "862 CZam 3.05%" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "910 CZbg 2.22%"  "921 Km 0.62%"    "945 CZbg 0.00%"  "946 CZam 0.20%" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] "948 CZam 0.04%" </span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Alternatively, run the same command using 'execGRASS'</span></span></span>
+<span class="r-in"><span>  <span class="fu">execGRASS</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"r.random.cells"</span>,</span></span>
+<span class="r-in"><span>    flags  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span>, <span class="st">"quiet"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    output <span class="op">=</span> <span class="st">"samples"</span>,</span></span>
+<span class="r-in"><span>    distance <span class="op">=</span> <span class="fl">1000</span>,</span></span>
+<span class="r-in"><span>    ncells <span class="op">=</span> <span class="fl">100L</span>,</span></span>
+<span class="r-in"><span>    seed <span class="op">=</span> <span class="fl">1L</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
