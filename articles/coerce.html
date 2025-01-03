@@ -119,7 +119,7 @@ version:</p>
 <pre><code><span><span class="co">## terra 1.8.5</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-spatial.github.io/sf/" class="external-link">"sf"</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span></code></pre>
+<pre><code><span><span class="co">## Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/edzer/sp/" class="external-link">"sp"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -132,7 +132,7 @@ libraries being used by <strong>terra</strong>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/gdal.html" class="external-link">gdal</a></span><span class="op">(</span>lib <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     gdal     proj     geos </span></span>
-<span><span class="co">##  "3.4.1"  "8.2.1" "3.10.2"</span></span></code></pre>
+<span><span class="co">##  "3.8.4"  "9.4.0" "3.12.1"</span></span></code></pre>
 <p>When using CRAN binary packages built static for Windows and macOS,
 the R packages will use the same versions of the external libraries, but
 not necessarily the same versions as those against which GRASS was
@@ -560,9 +560,17 @@ forefronts the Proj.4 string CRS representation:</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://edzer.github.io/sp/reference/is.projected.html" class="external-link">wkt</a></span><span class="op">(</span><span class="va">r_sp_stars</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## GEOGCRS["WGS 84",</span></span>
-<span><span class="co">##     DATUM["World Geodetic System 1984",</span></span>
+<span><span class="co">##     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
 <span><span class="co">##         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
-<span><span class="co">##             LENGTHUNIT["metre",1]]],</span></span>
+<span><span class="co">##             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">##         ENSEMBLEACCURACY[2.0]],</span></span>
 <span><span class="co">##     PRIMEM["Greenwich",0,</span></span>
 <span><span class="co">##         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
 <span><span class="co">##     CS[ellipsoidal,2],</span></span>
@@ -572,6 +580,10 @@ forefronts the Proj.4 string CRS representation:</p>
 <span><span class="co">##         AXIS["geodetic longitude (Lon)",east,</span></span>
 <span><span class="co">##             ORDER[2],</span></span>
 <span><span class="co">##             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">##     USAGE[</span></span>
+<span><span class="co">##         SCOPE["Horizontal component of 3D system."],</span></span>
+<span><span class="co">##         AREA["World."],</span></span>
+<span><span class="co">##         BBOX[-90,-180,90,180]],</span></span>
 <span><span class="co">##     ID["EPSG",4326]]</span></span></code></pre>
 <p>and can be round-tripped:</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">

@@ -227,113 +227,12 @@ may currently be incomplete, e.g. it may miss the EPSG code.</p>
 <span class="r-in"><span>  <span class="fu"><a href="execGRASS.html">execGRASS</a></span><span class="op">(</span><span class="st">"v.info"</span>, map <span class="op">=</span> <span class="st">"schools"</span>, layer <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">vInfo</span><span class="op">(</span><span class="st">"schools"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  +----------------------------------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Name:            schools                                                   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Mapset:          PERMANENT                                                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Location:        nc_basic_spm_grass7                                       |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Database:        /tmp/grassdb                                              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Title:           Wake County schools (points map)                          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Map scale:       1:1                                                       |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Name of creator: helena                                                    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Organization:    NC OneMap                                                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Source date:     Tue Nov  7 19:34:09 2006                                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Timestamp (first layer): none                                              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |----------------------------------------------------------------------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Map format:      native                                                    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |----------------------------------------------------------------------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Type of map: vector (level: 2)                                           |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of points:       167             Number of centroids:  0          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of lines:        0               Number of boundaries: 0          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of areas:        0               Number of islands:    0          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Map is 3D:              No                                               |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of dblinks:      1                                                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Projection: Lambert Conformal Conic                                      |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |               N:   248159.84441077    S:   203559.01136227                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |               E:   671714.55110786    W:   619215.13388253                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Digitization threshold: 0                                                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Comment:                                                                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  +----------------------------------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      nodes     points      lines boundaries  centroids      areas    islands </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          0        167          0          0          0          0          0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> primitives      map3d </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        167          0 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Read/write as a SpatVector</span></span></span>
 <span class="r-in"><span>  <span class="va">schs</span> <span class="op">&lt;-</span> <span class="fu">read_VECT</span><span class="op">(</span><span class="st">"schools"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">schs</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cat            TAG             NAMESHORT           NAMELONG        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :  1.0   Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 42.5   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median : 84.0   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 84.0                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:125.5                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :167.0                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CORECAPACI       MOBILEUNIT       MOBILECAPA      GLEVEL         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :   0.0   Min.   : 0.000   Min.   :0.00   Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 498.5   1st Qu.: 0.000   1st Qu.:0.75   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median : 586.0   Median : 6.000   Median :1.50   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 763.7   Mean   : 7.318   Mean   :1.75                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 903.0   3rd Qu.:11.000   3rd Qu.:2.50                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2294.0   Max.   :49.000   Max.   :4.00                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :23       NA's   :19       NA's   :163                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    LOGRADE            HIGRADE            CALENDAR           HASBASE         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ISMAGNET            PHONE            ADDRNUMBER         ADDRPREFIX       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ADDRROOT           ADDRTYPE          ADDRSUFFIX          ADDRCITY        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ADDRZIPCOD             SPED        STATUS             NODEID         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Min.   : NA   Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.: NA   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median : NA   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :NaN                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.: NA                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   : NA                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :167                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CAPACITYTO         ESL             BOARDDIS2            PROJ_CAP     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :   0.0   Length:167         Length:167         Min.   :   0.0  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 543.0   Class :character   Class :character   1st Qu.: 497.0  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median : 761.0   Mode  :character   Mode  :character   Median : 722.0  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 867.0                                         Mean   : 793.1  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 992.5                                         3rd Qu.: 975.0  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2294.0                                         Max.   :2390.0  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :20                                             NA's   :2       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     NOTES          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="op">{</span></span></span>
@@ -346,141 +245,25 @@ may currently be incomplete, e.g. it may miss the EPSG code.</p>
 <span class="r-in"><span>  <span class="fu">write_VECT</span><span class="op">(</span><span class="va">schs</span>, <span class="st">"newsch"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"o"</span>, <span class="st">"overwrite"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="execGRASS.html">execGRASS</a></span><span class="op">(</span><span class="st">"v.info"</span>, map <span class="op">=</span> <span class="st">"newsch"</span>, layer <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  +----------------------------------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Name:            newsch                                                    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Mapset:          RGRASS_EXAMPLES                                           |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Location:        nc_basic_spm_grass7                                       |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Database:        /tmp/grassdb                                              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Title:                                                                     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Map scale:       1:1                                                       |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Name of creator: runner                                                    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Organization:                                                              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Source date:     Fri Jan  3 21:24:06 2025                                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Timestamp (first layer): none                                              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |----------------------------------------------------------------------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  | Map format:      native                                                    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |----------------------------------------------------------------------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Type of map: vector (level: 2)                                           |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of points:       167             Number of centroids:  0          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of lines:        0               Number of boundaries: 0          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of areas:        0               Number of islands:    0          |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Map is 3D:              No                                               |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Number of dblinks:      1                                                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Projection: Lambert Conformal Conic                                      |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |               N:   248159.84441077    S:   203559.01136227                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |               E:   671714.55110786    W:   619215.13388253                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Digitization threshold: 0                                                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Comment:                                                                 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  +----------------------------------------------------------------------------+</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">nschs</span> <span class="op">&lt;-</span> <span class="fu">read_VECT</span><span class="op">(</span><span class="st">"newsch"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">nschs</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cat             cat_           TAG             NAMESHORT        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :  1.0   Min.   :  1.0   Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 42.5   1st Qu.: 42.5   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median : 84.0   Median : 84.0   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 84.0   Mean   : 84.0                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:125.5   3rd Qu.:125.5                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :167.0   Max.   :167.0                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    NAMELONG           CORECAPACI       MOBILEUNIT       MOBILECAPA  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Min.   :   0.0   Min.   : 0.000   Min.   :0.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.: 498.5   1st Qu.: 0.000   1st Qu.:0.75  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median : 586.0   Median : 6.000   Median :1.50  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   : 763.7   Mean   : 7.318   Mean   :1.75  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.: 903.0   3rd Qu.:11.000   3rd Qu.:2.50  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :2294.0   Max.   :49.000   Max.   :4.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :23       NA's   :19       NA's   :163   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     GLEVEL            LOGRADE            HIGRADE            CALENDAR        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    HASBASE            ISMAGNET            PHONE            ADDRNUMBER       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ADDRPREFIX          ADDRROOT           ADDRTYPE          ADDRSUFFIX       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ADDRCITY          ADDRZIPCOD             SPED        STATUS         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Length:167         Min.   : NA   Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   1st Qu.: NA   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Mode  :character   Median : NA   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        Mean   :NaN                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        3rd Qu.: NA                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        Max.   : NA                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        NA's   :167                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     NODEID            CAPACITYTO         ESL             BOARDDIS2        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:167         Min.   :   0.0   Length:167         Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.: 543.0   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median : 761.0   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   : 867.0                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.: 992.5                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :2294.0                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :20                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     PROJ_CAP         NOTES          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :   0.0   Length:167        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 497.0   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median : 722.0   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 793.1                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 975.0                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2390.0                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :2                          </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nschs</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">vColumns</span><span class="op">(</span><span class="st">"newsch"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Show metadata for the roadsmajor dataset and read as spatVector</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">vInfo</span><span class="op">(</span><span class="st">"roadsmajor"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      nodes     points      lines boundaries  centroids      areas    islands </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        266          0        355          0          0          0          0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> primitives      map3d </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        355          0 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">roads</span> <span class="op">&lt;-</span> <span class="fu">read_VECT</span><span class="op">(</span><span class="st">"roadsmajor"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">roads</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cat          MAJORRDS_      ROAD_NAME          MULTILANE        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :  1.0   Min.   :  1.0   Length:355         Length:355        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 89.5   1st Qu.: 91.5   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :178.0   Median :180.0   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :178.0   Mean   :179.8                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:266.5   3rd Qu.:268.5                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :355.0   Max.   :357.0                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     PROPYEAR         OBJECTID       SHAPE_LEN       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :   0.0   Min.   :  1.0   Min.   :   20.36  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:   0.0   1st Qu.: 89.5   1st Qu.:  763.32  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :   0.0   Median :178.0   Median : 1601.23  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 192.7   Mean   :178.0   Mean   : 4934.15  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:   0.0   3rd Qu.:266.5   3rd Qu.: 9555.59  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2025.0   Max.   :355.0   Max.   :64177.26  </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># not run: vect2neigh() currently writes 3 new data sources in the PERMANENT</span></span></span>
 <span class="r-in"><span><span class="co"># mapset, despite this mapset not being the active one.</span></span></span>

@@ -261,6 +261,7 @@ declare –interface-description output as UTF-8 without ensuring that it is.</p
 <span class="r-in"><span>       <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">GRASS_INSTALLATION</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
 <span class="r-in"><span>       <span class="fu"><a href="https://rdrr.io/r/base/file.info.html" class="external-link">file.info</a></span><span class="op">(</span><span class="va">GRASS_INSTALLATION</span><span class="op">)</span><span class="op">$</span><span class="va">isdir</span> <span class="op">&amp;&amp;</span></span></span>
 <span class="r-in"><span>       <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> terra 1.8.5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Plot the terra example dataset</span></span></span>
@@ -268,6 +269,7 @@ declare –interface-description output as UTF-8 without ensuring that it is.</p
 <span class="r-in"><span>  <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-plt img"><img src="initGRASS-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Initialize a temporary GRASS project using the example data</span></span></span>
@@ -284,6 +286,37 @@ declare –interface-description output as UTF-8 without ensuring that it is.</p
 <span class="r-in"><span>  <span class="fu"><a href="read_RAST.html">write_RAST</a></span><span class="op">(</span><span class="va">r</span>, <span class="st">"elev"</span>, flags <span class="op">=</span> <span class="st">"overwrite"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="execGRASS.html">execGRASS</a></span><span class="op">(</span><span class="st">"r.info"</span>, map <span class="op">=</span> <span class="st">"elev"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Importing raster map &lt;elev&gt;...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    0%   3%   6%  10%  13%  16%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> SpatRaster read into GRASS using r.in.gdal from file</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  +----------------------------------------------------------------------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  | Map:      elev                           Date: Fri Jan  3 21:33:13 2025    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  | Mapset:   file23d45a191682               Login of Creator: runner          |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  | Location: file23d4103bb193                                                 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  | DataBase: /tmp/RtmpYHGDRP                                                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  | Title:                                                                     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  | Timestamp: none                                                            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |----------------------------------------------------------------------------|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Type of Map:  raster               Number of Categories: 0               |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Data Type:    CELL                 Semantic label: (none)                |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Rows:         90                                                         |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Columns:      95                                                         |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Total Cells:  8550                                                       |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |        Projection: Latitude-Longitude                                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |            N:  50:11:30N    S:  49:26:30N   Res: 0:00:30                   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |            E:      6:32E    W:   5:44:30E   Res: 0:00:30                   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Range of data:    min = 141  max = 547                                   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Data Description:                                                        |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |    generated by r.in.gdal                                                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |   Comments:                                                                |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |    r.in.gdal --overwrite input="/home/runner/work/_temp/Library/terra/e\   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |    x/elev.tif" output="elev" memory=300 offset=0 num_digits=0              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  |                                                                            |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  +----------------------------------------------------------------------------+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Calculate slope and aspect raster</span></span></span>
@@ -295,12 +328,34 @@ declare –interface-description output as UTF-8 without ensuring that it is.</p
 <span class="r-in"><span>    aspect   <span class="op">=</span> <span class="st">"aspect"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    0%   3%   6%   9%  12%  15%  18%  21%  24%  27%  30%  34%  37%  40%  43%  46%  49%  52%  56%  59%  62%  65%  68%  71%  74%  78%  81%  84%  87%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Aspect raster map &lt;aspect&gt; complete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slope raster map &lt;slope&gt; complete</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Read the results back into R and plot</span></span></span>
 <span class="r-in"><span>  <span class="va">u1</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_RAST.html">read_RAST</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"elev"</span>, <span class="st">"slope"</span>, <span class="st">"aspect"</span><span class="op">)</span>, return_format <span class="op">=</span> <span class="st">"terra"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">u1</span><span class="op">[[</span><span class="st">"elev"</span><span class="op">]</span><span class="op">]</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Checking GDAL data type and nodata value...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2%   5%   8%  11%  14%  17%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Using GDAL data type &lt;UInt32&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exporting raster data to RRASTER format...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2%   5%   8%  11%  14%  17%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> r.out.gdal complete. File &lt;/tmp/RtmpYHGDRP/file23d4551fbb8b.grd&gt; created.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Checking GDAL data type and nodata value...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2%   5%   8%  11%  14%  17%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Using GDAL data type &lt;Float32&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exporting raster data to RRASTER format...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2%   5%   8%  11%  14%  17%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> r.out.gdal complete. File &lt;/tmp/RtmpYHGDRP/file23d467a178e4.grd&gt; created.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Checking GDAL data type and nodata value...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2%   5%   8%  11%  14%  17%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Using GDAL data type &lt;Float32&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Exporting raster data to RRASTER format...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2%   5%   8%  11%  14%  17%  20%  23%  26%  30%  33%  36%  40%  43%  46%  50%  53%  56%  60%  63%  66%  70%  73%  76%  80%  83%  86%  90%  93%  96% 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> r.out.gdal complete. File &lt;/tmp/RtmpYHGDRP/file23d49024847.grd&gt; created.</span>
+<span class="r-plt img"><img src="initGRASS-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
