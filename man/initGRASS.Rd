@@ -145,6 +145,11 @@ if (run) {
   plot(r, col = terrain.colors(50))
 }
 
+# Check for existing GRASS session running
+if (run) {
+  loc_existing <- try(gmeta())
+}
+
 if (run) {
   # Initialize a temporary GRASS project using the example data
   loc <- initGRASS(
@@ -176,6 +181,19 @@ if (run) {
   # Read the results back into R and plot
   u1 <- read_RAST(c("elev", "slope", "aspect"), return_format = "terra")
   plot(u1[["elev"]], col = terrain.colors(50))
+}
+
+# Restore the original GRASS session
+if (run) {
+  if (!inherits(loc, "try-error")) {
+    loc <- initGRASS(
+      gisBase = GRASS_INSTALLATION,
+      gisDbase = loc_existing$GISDBASE,
+      location = loc_existing$LOCATION_NAME,
+      mapset = loc_existing$MAPSET,
+      override = TRUE
+    )
+  }
 }
 }
 \seealso{
