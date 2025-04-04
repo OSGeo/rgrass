@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   coerce: coerce.html
   use: use.html
-last_built: 2025-04-04T04:26Z
+last_built: 2025-04-04T04:52Z
 urls:
   reference: https://osgeo.github.io/rgrass/reference
   article: https://osgeo.github.io/rgrass/articles
