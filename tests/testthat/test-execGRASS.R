@@ -3,6 +3,7 @@ library(terra)
 
 test_that("testing basic doGRASS, execGRASS, stringexecGRASS", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   loc <- initGRASS(
     home = tempdir(),
@@ -88,6 +89,7 @@ test_that("testing basic doGRASS, execGRASS, stringexecGRASS", {
 
 test_that("testing options doGRASS, execGRASS, stringexecGRASS", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   loc <- initGRASS(
     home = tempdir(),

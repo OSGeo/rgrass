@@ -3,6 +3,8 @@ library(terra)
 
 test_that("testing ignore.stderrOption", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
+
   origIgnoreStderr <- get.ignore.stderrOption()
 
   loc <- initGRASS(
@@ -36,6 +38,8 @@ test_that("testing ignore.stderrOption", {
 
 test_that("testing stop_on_no_flags_parasOption", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
+
   origStopOnNoFlagsParas <- get.stop_on_no_flags_parasOption()
 
   # testing stop_on_no_flags_parasOption set to TRUE by default
@@ -67,6 +71,8 @@ test_that("testing stop_on_no_flags_parasOption", {
 
 test_that("testing echoCmdOption option", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
+
   origEchoCmd <- get.echoCmdOption()
 
   # testing echoCmdOption (set to FALSE by default)
@@ -112,6 +118,8 @@ test_that("testing echoCmdOption option", {
 
 test_that("testing useInternOption option", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
+
   origUseIntern <- get.useInternOption()
 
   # testing echoCmdOption (set to FALSE by default)
@@ -139,6 +147,8 @@ test_that("testing useInternOption option", {
 
 test_that("testing legacyExecOption option", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
+
   origLegacyExec <- get.legacyExecOption()
 
   # testing echoCmdOption (set to FALSE by default)
@@ -180,6 +190,8 @@ test_that("testing legacyExecOption option", {
 
 test_that("testing defaultFlagsOption option", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
+
   origDefaultFlags <- get.defaultFlagsOption()
 
   # testing echoCmdOption (set to FALSE by default)

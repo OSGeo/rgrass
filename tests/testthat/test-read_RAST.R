@@ -2,7 +2,7 @@ library(testthat)
 library(terra)
 library(sp)
 
-if (!is.null(gisBase)) {
+if (!is.null(gisBase) & !is.null(testdata)) {
   loc <- initGRASS(
     home = tempdir(),
     gisBase = gisBase,
@@ -15,6 +15,7 @@ if (!is.null(gisBase)) {
 
 test_that("testing read_RAST using terra", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   # read a categorical raster map
   v1 <- read_RAST("landuse", cat = TRUE, return_format = "terra")
@@ -33,6 +34,7 @@ test_that("testing read_RAST using terra", {
 
 test_that("testing read_RAST using sp", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
   skip_on_ci()
   skip_on_cran()
 

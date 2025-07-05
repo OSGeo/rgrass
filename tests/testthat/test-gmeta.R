@@ -3,6 +3,7 @@ library(terra)
 
 testthat::test_that("testing gmeta", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   # Initialize a temporary GRASS project using the example data
   loc <- initGRASS(

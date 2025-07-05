@@ -3,6 +3,7 @@ library(terra)
 
 test_that("testing basic initGRASS", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   # Initialize a temporary GRASS project using the example data
   loc <- initGRASS(
@@ -22,6 +23,7 @@ test_that("testing basic initGRASS", {
 
 test_that("testing initialization from SpatRaster", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   meuse_grid <- rast(system.file("ex/meuse.tif", package = "terra"))
   loc <- initGRASS(home = tempdir(), gisBase = gisBase, SG = meuse_grid, override = TRUE)
@@ -30,6 +32,7 @@ test_that("testing initialization from SpatRaster", {
 
 test_that("testing remove_GISRC", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   loc <- initGRASS(
     home = tempdir(),
@@ -52,6 +55,7 @@ test_that("testing remove_GISRC", {
 test_that("testing set/unset.GIS_LOCK", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
   skip_if_not(Sys.info()["sysname"] == "Linux", "test only works on *nix")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   loc <- initGRASS(
     home = tempdir(),

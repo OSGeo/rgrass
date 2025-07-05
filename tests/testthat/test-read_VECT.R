@@ -4,6 +4,7 @@ library(terra)
 # test basic read_VECT operation
 test_that("testing read_VECT", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   if (!is.null(gisBase)) {
     loc <- initGRASS(
@@ -29,6 +30,7 @@ test_that("testing read_VECT", {
 
 test_that("testing write_VECT", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   shp <- vect(system.file("ex/lux.shp", package = "terra"))
   elev <- rast(system.file("ex/elev.tif", package = "terra"))
@@ -49,6 +51,7 @@ test_that("testing write_VECT", {
 # test basic vect2neigh operation
 test_that("testing vect2neigh", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
+  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   if (!is.null(gisBase)) {
     loc <- initGRASS(
