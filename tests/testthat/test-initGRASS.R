@@ -23,7 +23,6 @@ test_that("testing basic initGRASS", {
 
 test_that("testing initialization from SpatRaster", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
-  skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
   meuse_grid <- rast(system.file("ex/meuse.tif", package = "terra"))
   loc <- initGRASS(home = tempdir(), gisBase = gisBase, SG = meuse_grid, override = TRUE)
