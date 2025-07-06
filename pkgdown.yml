@@ -1,10 +1,10 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   coerce: coerce.html
   use: use.html
-last_built: 2025-04-04T04:52Z
+last_built: 2025-07-06T00:15Z
 urls:
   reference: https://osgeo.github.io/rgrass/reference
   article: https://osgeo.github.io/rgrass/articles
