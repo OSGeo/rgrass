@@ -51,8 +51,12 @@ parseGRASS <- function(cmd, legacyExec = NULL) {
       tr <- try(system(cmd0, intern = TRUE))
       if (inherits(tr, "try-error")) stop(paste(cmd, "not found"))
     } else {
-      errFile <- tempfile()
-      outFile <- tempfile()
+      errFile <- tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
+      outFile <- tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
+      on.exit({
+          unlink(errFile)
+          unlink(outFile)
+      })
       command <- paste(prep, cmd, ext, sep = "")
       arguments <- "--interface-description"
       res <- system2(
@@ -716,8 +720,12 @@ execGRASS <- function(
     command <- attr(syscmd, "cmd")
     arguments <- substring(syscmd, (nchar(command) + 2), nchar(syscmd))
 
-    errFile <- tempfile(fileext = ".err")
-    outFile <- tempfile(fileext = ".out")
+    errFile <- tempfile(fileext = ".err", tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
+    outFile <- tempfile(fileext = ".out", tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
+    on.exit({
+        unlink(errFile)
+        unlink(outFile)
+    })
 
     res <- system2(command, arguments,
       stderr = errFile,

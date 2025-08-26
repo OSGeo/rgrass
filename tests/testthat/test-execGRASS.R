@@ -5,13 +5,19 @@ test_that("testing basic doGRASS, execGRASS, stringexecGRASS", {
   skip_if_not(!is.null(gisBase), "GRASS GIS not found on PATH")
   skip_if(is.null(testdata), "GRASS GIS example dataset is not available")
 
+  # This test case will also check the `tempdir` argument to `initGRASS`.
+  tp = tempfile()
+  dir.create(tp)
+  previous.tempdir.contents = dir(tempdir())
+
   loc <- initGRASS(
-    home = tempdir(),
+    home = tp,
     gisBase = gisBase,
     gisDbase = testdata$gisDbase,
     location = "nc_basic_spm_grass7",
     mapset = "PERMANENT",
-    override = TRUE
+    override = TRUE,
+    tempdir = tp
   )
 
   # test assembling the command using arguments
@@ -85,6 +91,9 @@ test_that("testing basic doGRASS, execGRASS, stringexecGRASS", {
     "Invalid parameter name: silent"
   )
 
+  # Our parameters to `initGRASS` should've prevented creating any new files
+  # at the root of `tempdir()`.
+  expect_equal(dir(tempdir()), previous.tempdir.contents)
 })
 
 test_that("testing options doGRASS, execGRASS, stringexecGRASS", {

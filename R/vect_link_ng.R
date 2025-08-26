@@ -212,7 +212,7 @@ read_VECT <- function(
 
   } else {
     if (layer == "") layer <- "1"
-    tf <- tempfile(fileext = ".gpkg")
+    tf <- tempfile(fileext = ".gpkg", tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
     execGRASS("v.out.ogr",
               flags = flags, input = vname, type = type,
               layer = layer, output = tf, output_layer = vname,
@@ -274,7 +274,7 @@ write_VECT <- function(x, vname, flags = "overwrite",
   }
 
   if (!file.exists(tf)) {
-    tf <- tempfile(fileext = ".gpkg")
+    tf <- tempfile(fileext = ".gpkg", tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
     getMethod("writeVector", c("SpatVector", "character"))(x, filename = tf,
       filetype = "GPKG", options = NULL, overwrite = TRUE)
   }

@@ -88,6 +88,8 @@
 #'   `set.ignore.stderrOption`; can be set to TRUE to silence
 #'   `system()` output to standard error; does not apply on Windows
 #'   platforms.
+#' @param tempdir a directory to use for temporary files. You may want to
+#'   provide the same value for `home`.
 #'
 #' @return The function runs `gmeta6` before returning the current values
 #'   of the running GRASS session that it provides.
@@ -163,7 +165,11 @@
 initGRASS <- function(
     gisBase = NULL, home, SG, gisDbase, addon_base, location,
     mapset, override = FALSE, use_g.dirseps.exe = TRUE, pid,
-    remove_GISRC = FALSE, ignore.stderr = get.ignore.stderrOption()) {
+    remove_GISRC = FALSE, ignore.stderr = get.ignore.stderrOption(),
+    tempdir = base::tempdir()) {
+
+  Sys.setenv(RGRASS_TEMPDIR = tempdir)
+
   # check for existing GRASS session from rc filename specified in GISRC
   if (nchar(Sys.getenv("GISRC")) > 0 && !override) {
     ask_override(
@@ -396,7 +402,7 @@ initGRASS <- function(
     # check if the working directory is writable otherwise use a tempfile
     if (file.access(".", 2) != 0) {
       warning("working directory not writable, using tempfile for GISRC")
-      Sys.setenv(GISRC = paste(tempfile(), "junk", sep = "_"))
+      Sys.setenv(GISRC = paste(tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR")), "junk", sep = "_"))
     }
 
     # write the GISRC file
@@ -416,7 +422,7 @@ initGRASS <- function(
     if (!missing(gisDbase)) {
       if (!file.exists(gisDbase)) dir.create(gisDbase)
     } else {
-      gisDbase <- tempdir()
+      gisDbase <- Sys.getenv("RGRASS_TEMPDIR")
     }
 
     gisDbase <- ifelse(
@@ -496,7 +502,7 @@ initGRASS <- function(
     if (!missing(gisDbase)) {
       if (!file.exists(gisDbase)) dir.create(gisDbase)
     } else {
-      gisDbase <- tempdir()
+      gisDbase <- Sys.getenv("RGRASS_TEMPDIR")
     }
 
     cat("GISDBASE:", gisDbase, "\n", file = Sys.getenv("GISRC"))
@@ -710,7 +716,7 @@ initGRASS <- function(
 
   if (mSG) {
     if (nzchar(wkt_SG)) {
-      tf <- tempfile()
+      tf <- tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
       writeLines(wkt_SG, con = tf)
 
       MS <- execGRASS(

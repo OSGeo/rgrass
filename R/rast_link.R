@@ -362,7 +362,7 @@ read_RAST <- function(
       } else {
         NODATAi <- NODATA[i]
       }
-      tmplist[[i]] <- tempfile(fileext = fxt)
+      tmplist[[i]] <- tempfile(fileext = fxt, tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
       if (is.null(flags)) flags <- c("overwrite", "c", "m")
       if (!is.null(cat) && cat[i]) flags <- c(flags, "t")
       if (is.null(typei)) {
@@ -775,7 +775,8 @@ write_RAST <- function(
         drv <- "GTiff"
         fxt <- ".tif"
       }
-      tf <- tempfile(fileext = fxt)
+      tf <- tempfile(fileext = fxt, tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
+      on.exit(unlink(tf))
       res <- getMethod("writeRaster", c("SpatRaster", "character"))(x,
         filename = tf, overwrite = TRUE, filetype = drv)
       tmpfl <- TRUE
@@ -794,7 +795,8 @@ write_RAST <- function(
     if (getMethod("nlyr", "SpatRaster")(x) == 1L) {
       xcats <- getMethod("cats", "SpatRaster")(x)[[1]]
       if (!is.null(xcats)) {
-        tfc <- tempfile()
+        tfc <- tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
+        on.exit(unlink(tfc), add = TRUE)
         write.table(xcats, tfc,
           sep = ":", row.names = FALSE,
           col.names = FALSE, quote = FALSE
