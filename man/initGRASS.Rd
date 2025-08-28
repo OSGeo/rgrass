@@ -21,7 +21,8 @@ initGRASS(
   use_g.dirseps.exe = TRUE,
   pid,
   remove_GISRC = FALSE,
-  ignore.stderr = get.ignore.stderrOption()
+  ignore.stderr = get.ignore.stderrOption(),
+  tempdir = base::tempdir()
 )
 
 get.GIS_LOCK()
@@ -79,6 +80,9 @@ terminates or when this package is unloaded.}
 \code{set.ignore.stderrOption}; can be set to TRUE to silence
 \code{system()} output to standard error; does not apply on Windows
 platforms.}
+
+\item{tempdir}{a directory to use for temporary files. You may want to
+provide the same value for \code{home}.}
 }
 \value{
 The function runs \code{gmeta6} before returning the current values
