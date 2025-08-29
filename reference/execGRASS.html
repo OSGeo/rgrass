@@ -265,60 +265,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>  <span class="co"># Read and print GRASS interface description for 'r.slope.aspect'</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">parseGRASS</span><span class="op">(</span><span class="st">"r.slope.aspect"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Command: r.slope.aspect </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Description: Generates raster maps of slope, aspect, curvatures and partial derivatives from an elevation raster map. Aspect is calculated counterclockwise from east. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Keywords: raster, terrain, aspect, slope, curvature </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameters:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: elevation, type: string, required: yes, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name of input elevation raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: slope, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output slope raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: aspect, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output aspect raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: format, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   default: degrees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Format for reporting the slope]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: precision, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   default: FCELL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Storage type for resultant raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: pcurvature, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output profile curvature raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: tcurvature, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output tangential curvature raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: dx, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output first order partial derivative dx (E-W slope) raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: dy, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output first order partial derivative dy (N-S slope) raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: dxx, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output second order partial derivative dxx raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: dyy, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output second order partial derivative dyy raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: dxy, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output second order partial derivative dxy raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: zscale, type: float, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   default: 1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Multiplicative factor to convert elevation units to horizontal units]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: min_slope, type: float, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   default: 0.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Minimum slope value (in percent) for which aspect is computed]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Flags:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: a [Do not align the current region to the raster elevation map] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: e [Compute output at edges and near NULL values] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: n [Default: degrees counter-clockwise from East, with flat = 0] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: overwrite [Allow output files to overwrite existing files] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: help [Print usage summary] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: verbose [Verbose module output] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: quiet [Quiet module output] {FALSE}</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c3a621f3f': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Assemble the 'r.slope.aspect' command with specified parameters as a string</span></span></span>
 <span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span></span></span>
@@ -329,10 +277,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>    aspect <span class="op">=</span> <span class="st">"aspect"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.slope.aspect --overwrite elevation=elevation.dem slope=slope aspect=aspect </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect --overwrite elevation=elevation.dem slope=slope aspect=aspect"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c3ee72a50': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Alternatively, specify parameters as a list</span></span></span>
 <span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>elevation <span class="op">=</span> <span class="st">"elevation"</span>,</span></span>
@@ -342,35 +288,14 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>          flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>          parameters <span class="op">=</span> <span class="va">params</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.slope.aspect --overwrite elevation=elevation slope=slope aspect=aspect </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect --overwrite elevation=elevation slope=slope aspect=aspect"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.slope.aspect"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c4a6575a5': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Read and print GRASS interface description for 'r.buffer'</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">parseGRASS</span><span class="op">(</span><span class="st">"r.buffer"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Command: r.buffer </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Description: Creates a raster map showing buffer zones surrounding cells that contain non-NULL category values. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Keywords: raster, buffer </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameters:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: input, type: string, required: yes, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name of input raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: output, type: string, required: yes, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   keydesc: name, keydesc_count: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Name for output raster map]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: distances, type: float, required: yes, multiple: yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Distance zone(s)]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: units, type: string, required: no, multiple: no</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   default: meters</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Units of distance]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Flags:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: z [Ignore zero (0) data cells instead of NULL cells] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: overwrite [Allow output files to overwrite existing files] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: help [Print usage summary] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: verbose [Verbose module output] {FALSE}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name: quiet [Quiet module output] {FALSE}</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c68b2e838': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Assemble the 'r.buffer' with specified parameters as as string</span></span></span>
 <span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span></span></span>
@@ -381,10 +306,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>    distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">15000</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c336a6fa7': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Alternatively, specify parameters as a list</span></span></span>
 <span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
@@ -394,10 +317,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu">doGRASS</span><span class="op">(</span><span class="st">"r.buffer"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"overwrite"</span><span class="op">)</span>, parameters <span class="op">=</span> <span class="va">params</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GRASS command: r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer --overwrite input=schools output=bmap distances=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"cmd")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "r.buffer"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c3c028b63': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Restore original echo command option</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="gmeta.html">set.echoCmdOption</a></span><span class="op">(</span><span class="va">echoCmdOption</span><span class="op">)</span></span></span>
@@ -407,11 +328,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span><span class="st">"r.stats"</span>, input <span class="op">=</span> <span class="st">"fire_blocksgg"</span>, flags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>      silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in execGRASS("r.stats", input = "fire_blocksgg", flags = c("C",  : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   The command:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> r.stats -C -n input=fire_blocksgg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> produced an error (1) during execution:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ERROR: Raster map &lt;fire_blocksgg&gt; not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c1f1d8f18': No such file or directory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in file(con, "r") : cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Execute 'r.stats' with legacyExec and print the result</span></span></span>
 <span class="r-in"><span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">execGRASS</span><span class="op">(</span></span></span>
@@ -450,10 +368,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>    <span class="st">"r.random.cells --overwrite --quiet output=samples distance=1000 ncells=100 seed=1"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "217 CZfg 35.83%" "262 CZlg 9.81%"  "270 CZig 34.04%" "405 CZbg 12.53%"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "583 CZve 1.07%"  "720 CZam 0.24%"  "766 CZg 0.35%"   "862 CZam 3.05%" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "910 CZbg 2.22%"  "921 Km 0.62%"    "945 CZbg 0.00%"  "946 CZam 0.20%" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "948 CZam 0.04%" </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c34ea952b.err': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Alternatively, run the same command using 'execGRASS'</span></span></span>
 <span class="r-in"><span>  <span class="fu">execGRASS</span><span class="op">(</span></span></span>
@@ -465,6 +381,8 @@ declare –interface-description output as UTF-8 without ensuring that it is
 <span class="r-in"><span>    seed <span class="op">=</span> <span class="fl">1L</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/file208c52604c26': No such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
