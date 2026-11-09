@@ -75,9 +75,10 @@
 #'   mapset directory for the working session.
 #' @param override default FALSE, set to TRUE if accidental trashing of GRASS
 #'   .gisrc files and locations is not a problem.
-#' @param use_g.dirseps.exe default TRUE; when TRUE appears to work for WinGRASS
-#'   Native binaries, when FALSE for QGIS GRASS binaries; ignored on other
-#'   platforms.
+#' @param use_g.dirseps.exe default TRUE; whether Windows paths should be
+#'   normalized. The argument name is retained for compatibility, but path
+#'   normalization is performed by R and no longer invokes `g.dirseps.exe`.
+#'   Ignored on other platforms.
 #' @param pid default `as.integer(round(runif(1, 1, 1000)))`, integer used
 #'   to identify GIS_LOCK; the value here is arbitrary, but probably should be
 #'   set correctly.
@@ -163,9 +164,18 @@
 #'   }
 #' }
 initGRASS <- function(
-    gisBase = NULL, home, SG, gisDbase, addon_base, location,
-    mapset, override = FALSE, use_g.dirseps.exe = TRUE, pid,
-    remove_GISRC = FALSE, ignore.stderr = get.ignore.stderrOption(),
+    gisBase = NULL,
+    home = NULL,
+    SG = NULL,
+    gisDbase = NULL,
+    addon_base = NULL,
+    location = NULL,
+    mapset = NULL,
+    override = FALSE,
+    use_g.dirseps.exe = TRUE,
+    pid,
+    remove_GISRC = FALSE,
+    ignore.stderr = get.ignore.stderrOption(),
     tempdir = base::tempdir()) {
 
   Sys.setenv(RGRASS_TEMPDIR = tempdir)
@@ -173,11 +183,7 @@ initGRASS <- function(
   # check for existing GRASS session from rc filename specified in GISRC
   if (nchar(Sys.getenv("GISRC")) > 0 && !override) {
     ask_override(
-      paste0(
-        "A GRASS location (defined by ",
-        Sys.getenv("GISRC"),
-        ") is already in use"
-      ),
+      paste0("A GRASS location (defined by ", Sys.getenv("GISRC"), ") is already in use"),
       missing_override = missing(override),
       envir = environment()
     )
@@ -200,317 +206,87 @@ initGRASS <- function(
   # set PID if not provided
   if (missing(pid)) pid <- round(runif(1, 1, 1000))
   pid <- as.integer(pid)
-  
+
   stopifnot(
     !is.na(pid),
-    is.logical(override),
-    length(override) == 1,
-    is.logical(use_g.dirseps.exe),
-    length(use_g.dirseps.exe) == 1,
-    is.logical(remove_GISRC),
-    length(remove_GISRC) == 1
+    "`override` must be a logical" = is.logical(override),
+    "`override` must be of length 1" = length(override) == 1,
+    "`use_g.dirseps.exe` must be a logical" = is.logical(use_g.dirseps.exe),
+    "`use_g.dirseps.exe` must be of length 1" = length(use_g.dirseps.exe) == 1,
+    "`remove_GISRC` must be a logical" = is.logical(remove_GISRC),
+    "`remove_GISRC` must be of length 1" = length(remove_GISRC) == 1
   )
 
-  # check for gisBase argument or GRASS_INSTALLATION
-  # otherwise attempt to scrape it from the shell
+  # get GRASS install from PATH if not provided
   if (is.null(gisBase)) {
-    message(
-      "No gisBase set. Trying to detect from the GRASS_INSTALLATION ",
-      "environment variable."
-    )
-    grass_installation <- Sys.getenv("GRASS_INSTALLATION")
-    stopifnot(is.character(grass_installation))
-    if (nchar(grass_installation) > 0) {
-      message(
-        "Taking gisBase value from GRASS_INSTALLATION: ",
-        grass_installation
-      )
-      gisBase <- grass_installation
-    } else {
-      message(
-        "No GRASS_INSTALLATION environment variable was found.\n",
-        "Trying to set gisBase by running command ",
-        "`grass --config path` (requires grass in the system PATH)."
-      )
-
-      tryCatch({
-        gisBase <-
-          if (.Platform$OS.type == "windows") {
-            shell("grass --config path", intern = TRUE)
-          } else {
-            system("grass --config path", intern = TRUE)
-          }
-      }, error = function(e) {
-        stop(
-          "grass seems to be unavailable in the system PATH.\n",
-          "Either provide the gisBase argument or set a ",
-          "GRASS_INSTALLATION environment variable to provide the ",
-          "gisBase path",
-          call. = FALSE
-        )
-      })
-
-      message(
-        "Taking gisBase value from `grass --config path` output: ",
-        gisBase
-      )
-      stopifnot(length(gisBase) == 1L)
-    }
+    gisBase <- search_grass()
   }
-
-  # check if the gisbase path is valid
-  if (!file.exists(gisBase)) {
-    stop(paste(gisBase, "not found"))
-  }
-  
-  if (!file.info(gisBase)$isdir[1]) {
-    stop(gisBase, " is not a directory")
-  }
-  
-  bin_is_dir <- file.info(file.path(gisBase, "bin"))$isdir[1]
-  
-  if (is.na(bin_is_dir)) {
-    stop(gisBase, " does not contain bin, the directory with GRASS programs")
-  }
-  
-  if (!bin_is_dir) {
-    stop(gisBase, "/bin is not a directory")
-  }
-  
-  # check if the gisbase/scripts path is valid
-  scripts_is_dir <- file.info(file.path(gisBase, "scripts"))$isdir[1]
-  
-  if (is.na(scripts_is_dir)) {
-    stop(gisBase, " does not contain scripts, the directory with GRASS scripts")
-  }
-  
-  if (!scripts_is_dir) {
-    stop(gisBase, "/scripts is not a directory")
-  }
+  validate_gisbase(gisBase)
 
   # retrieve the version of GRASS
-  gv <- readLines(file.path(gisBase, "etc/VERSIONNUMBER"))
-  gv <- substring(gv, 1, 1)
+  gv <- grass_version(gisBase)
 
-  # set platform variant environment variables for GRASS
-  SYS <- get("SYS", envir = .GRASS_CACHE)
+  # set the home directory environment variable
+  home <- set_home_path(home)
 
-  if (SYS == "WinNat") {
-    Sys.setenv(GISBASE = gisBase)
+  session <- create_session_directories(
+    gisDbase = gisDbase,
+    location = location,
+    mapset = mapset,
+    tempdir = tempdir
+  )
+  gisDbase <- session$gisDbase
+  location <- session$location
+  mapset <- session$mapset
+  loc_path <- session$loc_path
 
-    # set HOME environment variable to USERPROFILE if not set
-    if (missing(home)) home <- Sys.getenv("USERPROFILE")
-    Sys.setenv(HOME = home)
+  # set GRASS startup environment variables
+  platform <- get("SYS", envir = .GRASS_CACHE)
+  missing_override <- missing(override)
 
-    # set ADDON_BASE environment variable to %APPDATA%\GRASS7\addons if not set
-    if (missing(addon_base)) {
-      addon_base <- paste0(Sys.getenv("APPDATA"), "/GRASS", gv, "/addons")
-    }
-    addon_res <- file.exists(addon_base, paste0(addon_base, "/bin"))
-    if (any(addon_res)) Sys.setenv("GRASS_ADDON_BASE" = addon_base)
-
-    # set OSGEO4W_ROOT environment variable if not set
-    OSGEO4W_ROOT <- Sys.getenv("OSGEO4W_ROOT")
-
-    if (nchar(OSGEO4W_ROOT) > 0) {
-      Sys.setenv(GRASS_PROJSHARE = paste0(OSGEO4W_ROOT, "\\share\\proj"))
-    } else {
-      unistring <- toupper(gisBase)
-      unistring <- gsub("\\\\", "/", unistring)
-
-      if (length(grep("OSGEO4W.*/APPS/GRASS", unistring)) > 0) {
-        stop(
-          "NOTE: If using OSGeo4W GRASS, start R in the OSGeo4W shell,\n",
-          "see help(initGRASS) for further details"
-        )
-      }
-
-      if (length(grep("QGIS.*/APPS/GRASS", unistring)) > 0) {
-        stop(paste(
-          "NOTE: If using Windows standalone QGIS GRASS, start R in the QGIS standalone",
-          "OSGeo4W shell, see help(initGRASS) for further details",
-          sep = "\n"
-        ))
-      }
-      Sys.setenv(
-        GRASS_PROJSHARE = paste0(Sys.getenv("GISBASE"), "\\share\\proj")
-      )
-    }
-
-    # add various directories to the PATH environment variable
-    Wpath <- Sys.getenv("PATH")
-
-    if (length(grep(basename(Sys.getenv("GISBASE")), Wpath)) < 1) {
-      Sys.setenv(
-        PATH = paste0(Sys.getenv("GISBASE"), "\\lib;", Sys.getenv("PATH"))
-      )
-      Sys.setenv(
-        PATH = paste0(Sys.getenv("GISBASE"), "\\bin;", Sys.getenv("PATH"))
-      )
-      Sys.setenv(
-        PATH = paste0(Sys.getenv("GISBASE"), "\\extrabin;", Sys.getenv("PATH"))
-      )
-
-      if (addon_res[2]) {
-        Sys.setenv(PATH = paste0(
-          Sys.getenv("GRASS_ADDON_BASE"),
-          "\\bin;",
-          Sys.getenv("PATH")
-        ))
-      }
-
-      # set PYTHONPATH environment variable
-      ePyPATH <- Sys.getenv("PYTHONPATH")
-
-      if ((length(grep(basename(Sys.getenv("GISBASE")), ePyPATH)) < 1) ||
-          nchar(ePyPATH) == 0) {
-        GrPyPATH <- file.path(Sys.getenv("GISBASE"), "/etc/python")
-        if (nchar(ePyPATH) > 0) {
-          Sys.setenv(PYTHONPATH = paste(GrPyPATH, ePyPATH, sep = ";"))
-        } else {
-          Sys.setenv(PYTHONPATH = GrPyPATH)
-        }
-      }
-
-      if (nchar(OSGEO4W_ROOT) > 0) {
-        Sys.setenv(
-          PYTHONHOME = paste(OSGEO4W_ROOT, "apps/Python37", sep = "/")
-        )
-      } else {
-        G_B_files <- list.files(Sys.getenv("GISBASE"))
-        Python_dir <- G_B_files[grep("Python", G_B_files)]
-
-        if (length(Python_dir) > 0) {
-          Sys.setenv(
-            PYTHONHOME = paste(Sys.getenv("GISBASE"), Python_dir[1], sep = "/")
-          )
-        }
-      }
-    }
-
-    # set GISRC environment variable to the location of the .grassrc file
-    Sys.setenv(GISRC = paste0(Sys.getenv("HOME"), "\\.grassrc", gv))
-
-    if (file.exists(Sys.getenv("GISRC")) && !override) {
-      ask_override(
-        paste("A GISRC file", Sys.getenv("GISRC"), "already exists"),
-        missing_override = missing(override),
-        envir = environment()
-      )
-    }
-
-    # check if the working directory is writable otherwise use a tempfile
-    if (file.access(".", 2) != 0) {
-      warning("working directory not writable, using tempfile for GISRC")
-      Sys.setenv(GISRC = paste(tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR")), "junk", sep = "_"))
-    }
-
-    # write the GISRC file
-    cat("GISDBASE:", getwd(), "\n", file = Sys.getenv("GISRC"))
-    cat("LOCATION_NAME: <UNKNOWN>", "\n", file = Sys.getenv("GISRC"), append = TRUE)
-    cat("MAPSET: <UNKNOWN>", "\n", file = Sys.getenv("GISRC"), append = TRUE)
-
-    gisrc <- ifelse(
-      use_g.dirseps.exe,
-      system(paste("g.dirseps.exe -g", shQuote(Sys.getenv("GISRC"))), intern = TRUE),
-      Sys.getenv("GISRC")
+  if (platform == "WinNat") {
+    OSGEO4W_ROOT <- setup_runtime_env_windows(
+      gisBase = gisBase,
+      addon_base = addon_base,
+      gv = gv
     )
 
+    # calculate the platform-specific executable suffix
+    # windows = ".exe", linux = ""
     assign("addEXE", .addexe(), envir = .GRASS_CACHE)
-    Sys.setenv(GISRC = gisrc)
 
-    if (!missing(gisDbase)) {
-      if (!file.exists(gisDbase)) dir.create(gisDbase)
-    } else {
-      gisDbase <- Sys.getenv("RGRASS_TEMPDIR")
+    if (use_g.dirseps.exe) {
+      gisDbase <- normalizePath(
+        gisDbase,
+        winslash = "/",
+        mustWork = TRUE
+      )
     }
-
-    gisDbase <- ifelse(
-      use_g.dirseps.exe,
-      system(paste("g.dirseps.exe -g", shQuote(gisDbase)), intern = TRUE),
-      gisDbase
-    )
-  } else if (SYS == "unix") {
+    loc_path <- file.path(gisDbase, location)
+  } else if (platform == "unix") {
     OSGEO4W_ROOT <- ""
 
-    Sys.setenv(GISBASE = gisBase)
-
-    if (missing(home)) {
-      home <- Sys.getenv("HOME")
-    }
-
-    if (missing(addon_base)) {
-      addon_base <- paste0(Sys.getenv("HOME"), "/.grass", gv, "/addons")
-    }
-
-    addon_res <- file.exists(
-      addon_base,
-      paste0(addon_base, "/bin"),
-      paste0(addon_base, "/scripts")
+    setup_runtime_env_unix(
+      gisBase = gisBase,
+      addon_base = addon_base,
+      gv = gv
     )
-
-    if (any(addon_res)) {
-      Sys.setenv("GRASS_ADDON_BASE" = addon_base)
-    }
-
-    ePATH <- Sys.getenv("PATH")
-
-    if (length(grep(basename(Sys.getenv("GISBASE")), ePATH)) < 1) {
-      Sys.setenv(PATH = paste0(
-        Sys.getenv("GISBASE"), "/bin:",
-        Sys.getenv("GISBASE"), "/scripts",
-        ifelse(addon_res[2], paste0(":", Sys.getenv("GRASS_ADDON_BASE"), "/bin"), ""),
-        ifelse(addon_res[3], paste0(":", Sys.getenv("GRASS_ADDON_BASE"), "/scripts"), ""),
-        ifelse(nchar(ePATH) == 0, "", ":"), ePATH
-      ))
-    }
-
-    eLDPATH <- Sys.getenv("LD_LIBRARY_PATH")
-
-    if (length(grep(basename(Sys.getenv("GISBASE")), eLDPATH)) < 1) {
-      Sys.setenv(LD_LIBRARY_PATH = paste0(
-        Sys.getenv("GISBASE"), "/lib:",
-        ifelse(nchar(eLDPATH) == 0, "", ":"), eLDPATH
-      ))
-    }
-
-    # FIXME Sys.info()["sysname"] == "Darwin"
-    Sys.setenv(GISRC = paste0(home, "/.grassrc", gv))
-
-    # FIXME
-    if (file.exists(Sys.getenv("GISRC")) && !override) {
-      ask_override(
-        paste("A GISRC file", Sys.getenv("GISRC"), "already exists"),
-        missing_override = missing(override),
-        envir = environment()
-      )
-    }
-
-    ePyPATH <- Sys.getenv("PYTHONPATH")
-
-    if (length(grep(basename(Sys.getenv("GISBASE")), ePyPATH)) < 1 ||
-        nchar(ePyPATH) == 0) {
-      GrPyPATH <- file.path(Sys.getenv("GISBASE"), "etc", "python")
-
-      if (nchar(ePyPATH) > 0) {
-        Sys.setenv(PYTHONPATH = paste(GrPyPATH, ePyPATH, sep = ":"))
-      } else {
-        Sys.setenv(PYTHONPATH = GrPyPATH)
-      }
-    }
-
-    if (!missing(gisDbase)) {
-      if (!file.exists(gisDbase)) dir.create(gisDbase)
-    } else {
-      gisDbase <- Sys.getenv("RGRASS_TEMPDIR")
-    }
-
-    cat("GISDBASE:", gisDbase, "\n", file = Sys.getenv("GISRC"))
-    cat("LOCATION_NAME: <UNKNOWN>", "\n", file = Sys.getenv("GISRC"), append = TRUE)
-    cat("MAPSET: <UNKNOWN>", "\n", file = Sys.getenv("GISRC"), append = TRUE)
   } else {
-    stop(paste("Platform variant", SYS, "not supported"))
+    stop(paste("Platform variant", platform, "not supported"))
   }
+
+  write_gisrc(
+    gisDbase = gisDbase,
+    location = location,
+    mapset = mapset,
+    home = home,
+    gv = gv,
+    platform = platform,
+    override = override,
+    missing_override = missing_override,
+    use_g.dirseps.exe = use_g.dirseps.exe,
+    tempdir = tempdir
+  )
 
   set.GIS_LOCK(pid)
   assign("INIT_USED", TRUE, envir = .GRASS_CACHE)
@@ -519,49 +295,6 @@ initGRASS <- function(
   if (remove_GISRC) {
     assign("remove_GISRC", remove_GISRC, envir = .GRASS_CACHE)
   }
-
-  system(paste(
-    paste0("g.gisenv", get("addEXE", envir = .GRASS_CACHE)),
-    shQuote(paste("set=GISDBASE=", gisDbase))
-  ))
-
-  if (missing(location)) {
-    location <- basename(tempfile())
-  }
-
-  loc_path <- paste(gisDbase, location, sep = "/")
-
-  if (!file.exists(loc_path)) dir.create(loc_path)
-
-  if (!file.exists(paste(loc_path, "PERMANENT", sep = "/"))) {
-    dir.create(paste(loc_path, "PERMANENT", sep = "/"))
-  }
-
-  if (missing(mapset)) mapset <- basename(tempfile())
-
-  if (!file.exists(paste(loc_path, mapset, sep = "/"))) {
-    dir.create(paste(loc_path, mapset, sep = "/"))
-  }
-
-  system(paste(
-    paste0("g.gisenv", get("addEXE", envir = .GRASS_CACHE)),
-    shQuote(paste("set=GISDBASE", gisDbase, sep = "="))
-  ))
-
-  system(paste(
-    paste0("g.gisenv", get("addEXE", envir = .GRASS_CACHE)),
-    shQuote(paste("set=LOCATION_NAME", location, sep = "="))
-  ))
-
-  system(paste(
-    paste0("g.gisenv", get("addEXE", envir = .GRASS_CACHE)),
-    shQuote(paste("set=MAPSET", mapset, sep = "="))
-  ))
-
-  system(paste(
-    paste0("g.gisenv", get("addEXE", envir = .GRASS_CACHE)),
-    shQuote("set=GRASS_GUI=text")
-  ))
 
   Sys.setenv(GISBASE = gisBase)
   Sys.setenv(GISDBASE = gisDbase)
@@ -579,188 +312,15 @@ initGRASS <- function(
     stop(attr(comp, "message"))
   }
 
-  grass_python <- Sys.getenv("GRASS_PYTHON")
-
-  if (grass_python == "") {
-    if (nchar(OSGEO4W_ROOT) > 0) {
-      if (file.exists(paste(OSGEO4W_ROOT, "bin/python3.exe", sep = "/"))) {
-        Sys.setenv(
-          GRASS_PYTHON = paste(OSGEO4W_ROOT, "bin/python3.exe", sep = "/")
-        )
-      } else {
-        Sys.setenv(
-          GRASS_PYTHON = paste(OSGEO4W_ROOT, "bin/python.exe", sep = "/")
-        )
-      }
-    } else {
-      gvers <- system(
-        paste0("g.version", get("addEXE", envir = .GRASS_CACHE), " -g "),
-        intern = TRUE
-      )
-      gvers <- strsplit(gvers[1], "=")[[1]][2]
-
-      if (gvers > "7.6.1") {
-        Sys.setenv(
-          GRASS_PYTHON = paste0("python3", get("addEXE", envir = .GRASS_CACHE))
-        )
-      } else {
-        Sys.setenv(
-          GRASS_PYTHON = paste0("python", get("addEXE", envir = .GRASS_CACHE))
-        )
-      }
-    }
-  }
+  set_grass_python(OSGEO4W_ROOT = OSGEO4W_ROOT)
 
   assign("GV", gv, envir = .GRASS_CACHE)
-  pfile <- paste(loc_path, "PERMANENT", "DEFAULT_WIND", sep = "/")
-  mSG <- FALSE
-
-  if (!file.exists(pfile)) {
-    lonlat <- FALSE
-    mSG <- !missing(SG)
-    if (mSG) {
-      if (inherits(SG, "SpatialGrid")) {
-        if (!requireNamespace("sp", quietly = TRUE)) {
-          stop("The sp package is required for the SG argument")
-        }
-        bb <- sp::bbox(SG)
-        gt <- sp::gridparameters(SG)
-        wkt_SG <- sp::wkt(SG)
-        lonlatSG <- !sp::is.projected(SG)
-      } else if (inherits(SG, "SpatRaster")) {
-        if (!requireNamespace("terra", quietly = TRUE)) {
-          stop("The terra package is required for the SG argument")
-        }
-        bb <- getMethod("ext", "SpatRaster")(SG)
-        bb <- as.vector(bb)
-        bb <- matrix(bb, 2, 2, byrow = TRUE)
-        colnames(bb) <- c("min", "max")
-        cs <- getMethod("res", "SpatRaster")(SG)
-        co <- bb[, 1] + (cs / 2)
-        cd <- c(
-          getMethod("ncol", "SpatRaster")(SG),
-          getMethod("nrow", "SpatRaster")(SG)
-        )
-        gt <- data.frame(
-          cellcentre.offset = co, cellsize = cs,
-          cells.dim = cd
-        )
-        wkt_SG <- getMethod("crs", "SpatRaster")(SG)
-        lonlatSG <- getMethod("is.lonlat", "SpatRaster")(SG)
-      } else {
-        stop("SG must be a SpatRaster or SpatialGrid object")
-      }
-      lonlat <- !is.na(lonlatSG) && lonlatSG
-    }
-
-    cat("proj:       ", ifelse(lonlat, 3, 99), "\n", file = pfile)
-    cat("zone:       0\n", file = pfile, append = TRUE)
-    cat("north:      ", ifelse(mSG, bb[2, "max"], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("south:      ", ifelse(mSG, bb[2, "min"], 0), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("east:       ", ifelse(mSG, bb[1, "max"], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("west:       ", ifelse(mSG, bb[1, "min"], 0), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("cols:       ", ifelse(mSG, gt$cells.dim[1], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("rows:       ", ifelse(mSG, gt$cells.dim[2], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("e-w resol:  ", ifelse(mSG, gt$cellsize[1], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("n-s resol:  ", ifelse(mSG, gt$cellsize[2], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("top:        1\n", sep = "", file = pfile, append = TRUE)
-    cat("bottom:     0\n", sep = "", file = pfile, append = TRUE)
-    cat("cols3:      ", ifelse(mSG, gt$cells.dim[1], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("rows3:      ", ifelse(mSG, gt$cells.dim[2], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("depths:     1\n", sep = "", file = pfile, append = TRUE)
-    cat("e-w resol3: ", ifelse(mSG, gt$cellsize[1], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("n-s resol3: ", ifelse(mSG, gt$cellsize[2], 1), "\n",
-        sep = "", file = pfile, append = TRUE
-    )
-    cat("t-b resol:  1\n", sep = "", file = pfile, append = TRUE)
-  }
-
-  tfile <- paste(loc_path, "PERMANENT", "WIND", sep = "/")
-  if (!file.exists(tfile)){
-    file.copy(pfile, tfile, overwrite = TRUE)
-  }
-
-  tfile <- paste(loc_path, mapset, "WIND", sep = "/")
-  if (!file.exists(tfile)) {
-    file.copy(pfile, tfile, overwrite = TRUE)
-  }
-
-  execGRASS(
-    "g.region",
-    save = "input",
-    flags = "overwrite",
+  write_wind(
+    loc_path = loc_path,
+    mapset = mapset,
+    SG = SG,
     ignore.stderr = ignore.stderr
   )
-
-  if (mSG) {
-    if (nzchar(wkt_SG)) {
-      tf <- tempfile(tmpdir = Sys.getenv("RGRASS_TEMPDIR"))
-      writeLines(wkt_SG, con = tf)
-
-      MS <- execGRASS(
-        "g.mapset",
-        flags = "p",
-        intern = TRUE,
-        ignore.stderr = ignore.stderr
-      )
-
-      if (MS != "PERMANENT") {
-        execGRASS(
-          "g.mapset",
-          mapset = "PERMANENT",
-          flags = "quiet",
-          ignore.stderr = ignore.stderr
-        )
-      }
-      tull <- execGRASS(
-        "g.proj",
-        flags = "c",
-        wkt = tf,
-        ignore.stderr = ignore.stderr,
-        intern = TRUE
-      )
-
-      execGRASS(
-        "g.region",
-        flags = "s",
-        region = paste0("input@", mapset),
-        ignore.stderr = ignore.stderr
-      )
-
-      execGRASS("g.region", flags = "d", ignore.stderr = ignore.stderr)
-
-      if (MS != "PERMANENT") {
-        execGRASS(
-          "g.mapset",
-          mapset = mapset,
-          flags = "quiet",
-          ignore.stderr = ignore.stderr
-        )
-      }
-    }
-  }
 
   gmeta(ignore.stderr = ignore.stderr)
 }

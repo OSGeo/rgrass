@@ -96,8 +96,8 @@ area, and total giving each polygon's total boundary length.
 }
 \description{
 \code{read_VECT} moves one GRASS vector object file with attribute data
-through a temporary GeoPackage file to a \code{\link[terra:SpatVector-class]{terra::SpatVector}}
-object; \code{write_VECT} moves a \code{\link[terra:SpatVector-class]{terra::SpatVector}} object
+through a temporary GeoPackage file to a \code{\link[terra:SpatVector]{terra::SpatVector}}
+object; \code{write_VECT} moves a \code{\link[terra:SpatVector]{terra::SpatVector}} object
 through a temporary GeoPackage file to a GRASS vector object file.
 \code{vect2neigh} returns neighbour pairs with shared boundary length as
 described by Markus Neteler, in

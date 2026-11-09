@@ -1,6 +1,15 @@
 .GRASS_CACHE <- new.env(FALSE, parent = globalenv())
 
 .onLoad <- function(lib, pkg) {
+  # `initGRASS()` sets this for sessions created from R. When R is started
+  # inside an existing GRASS session, however, `initGRASS()` is not called.
+  # Ensure command output/error files still use R's session temporary
+  # directory instead of `tempfile(tmpdir = "")`, which resolves at the
+  # filesystem root on Unix.
+  if (!nzchar(Sys.getenv("RGRASS_TEMPDIR"))) {
+    Sys.setenv(RGRASS_TEMPDIR = base::tempdir())
+  }
+
   # backup original environment variables
   assign(
     ".GRASS_old.GRASS_PAGER",

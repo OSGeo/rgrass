@@ -48,6 +48,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Steven Pawley \email{dr.stevenpawley@gmail.com} (\href{https://orcid.org/0000-0002-5524-3320}{ORCID})
   \item Roger Bivand \email{Roger.Bivand@nhh.no} (\href{https://orcid.org/0000-0003-2392-6140}{ORCID})
 }
 

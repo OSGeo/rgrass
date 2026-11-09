@@ -30,7 +30,7 @@ SystemRequirements: GRASS (>= 7)
 License: GPL (>= 2)
 URL: https://osgeo.github.io/rgrass/, https://grass.osgeo.org/, https://github.com/osgeo/rgrass, https://lists.osgeo.org/mailman/listinfo/grass-stats
 BugReports: https://github.com/osgeo/rgrass/issues/
-RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

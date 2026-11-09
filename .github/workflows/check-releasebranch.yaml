@@ -13,23 +13,41 @@ jobs:
   R-CMD-check-releasebranch:
     runs-on: ubuntu-latest
     strategy:
-      matrix: 
+      fail-fast: false
+      matrix:
         container: [
           "osgeo/grass-gis:releasebranch_8_4-ubuntu",
           "osgeo/grass-gis:main-ubuntu"
         ]
-    
+
     container:
       image: ${{ matrix.container }}
       options: --privileged
 
     steps:
+    - name: Detect container Ubuntu release
+      run: |
+        . /etc/os-release
+        codename="${UBUNTU_CODENAME:-${VERSION_CODENAME:-}}"
+        if [ -z "$codename" ]; then
+          echo "Unable to determine the container's Ubuntu codename" >&2
+          exit 1
+        fi
+        echo "CONTAINER_UBUNTU_CODENAME=$codename" >> "$GITHUB_ENV"
+        echo "Container Ubuntu release: $codename"
+
+    - name: Install CA certificates
+      run: |
+        apt-get update
+        apt-get install -y ca-certificates
+
     - uses: actions/checkout@v4
 
     - name: Install system deps
       run: |
         apt-get update
-        apt-get install -y \
+        apt-get install -y --no-install-recommends \
+          libtiff-dev \
           libudunits2-dev \
           libharfbuzz-dev \
           libfribidi-dev \
@@ -37,19 +55,18 @@ jobs:
           libmysqlclient-dev \
           libfontconfig1-dev \
           qpdf \
-          pandoc \
-          pandoc-citeproc
+          pandoc
 
     - name: Install R
       run: |
         wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-        echo "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | tee -a /etc/apt/sources.list
+        echo "deb https://cloud.r-project.org/bin/linux/ubuntu ${CONTAINER_UBUNTU_CODENAME}-cran40/" | tee -a /etc/apt/sources.list
         apt-get update
         apt-get install -y r-base-dev
 
     - name: Configure RSPM in .Renviron
       run: |
-        echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))' >> ~/.Rprofile
+        echo "options(repos = c(CRAN = \"https://packagemanager.posit.co/cran/__linux__/${CONTAINER_UBUNTU_CODENAME}/latest\"))" >> ~/.Rprofile
         echo 'options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), R.version["platform"], R.version["arch"], R.version["os"])))' >> ~/.Rprofile
         echo 'options(Ncpus=parallel::detectCores())' >> ~/.Rprofile
 
@@ -57,8 +74,10 @@ jobs:
       run: |
         R -e "install.packages(c('remotes', 'rcmdcheck'))"
         R -e "remotes::install_deps(dependencies = TRUE)"
-        R -e "install.packages('terra', repos = 'https://cloud.r-project.org/', type = 'source')"
-    
+        R -e "stopifnot(requireNamespace('terra', quietly = TRUE)); print(packageVersion('terra')); print(terra::gdal())"
+
     - uses: r-lib/actions/check-r-package@v2
       with:
-        upload-snapshots: true
+        # Artifact uploads need Node in the job container, which act does not
+        # inject as GitHub-hosted runners do. Snapshots are still uploaded on CI.
+        upload-snapshots: ${{ !env.ACT }}

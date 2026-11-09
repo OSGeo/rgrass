@@ -62,7 +62,7 @@ user-opened connections being broken.}
 \code{system()} output to standard error; does not apply on Windows
 platforms.}
 
-\item{x}{A terra \code{\link[terra:SpatRaster-class]{terra::SpatRaster}} or sp \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}}
+\item{x}{A terra \code{\link[terra:SpatRaster]{terra::SpatRaster}} or sp \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}}
 object,}
 
 \item{zcol}{Attribute column number or name,}
@@ -79,9 +79,9 @@ SpatialGridDataFrame object if \code{return_format="SGDF"}.
 \code{write_RAST} silently returns the object being written to GRASS.
 }
 \description{
-Read GRASS raster files from GRASS into R \code{\link[terra:SpatRaster-class]{terra::SpatRaster}} or
+Read GRASS raster files from GRASS into R \code{\link[terra:SpatRaster]{terra::SpatRaster}} or
 \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}} objects, and write single columns of
-\code{\link[terra:SpatRaster-class]{terra::SpatRaster}} or \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}}
+\code{\link[terra:SpatRaster]{terra::SpatRaster}} or \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}}
 objects to GRASS. When \code{return_format="terra"}, temporary binary files
 and r.out.bin and r.in.bin are used for speed reasons. \code{read_RAST()} and
 \code{write_RAST()} by default use "RRASTER" files written and read by

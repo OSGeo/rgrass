@@ -11,12 +11,12 @@
 \usage{
 initGRASS(
   gisBase = NULL,
-  home,
-  SG,
-  gisDbase,
-  addon_base,
-  location,
-  mapset,
+  home = NULL,
+  SG = NULL,
+  gisDbase = NULL,
+  addon_base = NULL,
+  location = NULL,
+  mapset = NULL,
   override = FALSE,
   use_g.dirseps.exe = TRUE,
   pid,
@@ -64,9 +64,10 @@ mapset directory for the working session.}
 \item{override}{default FALSE, set to TRUE if accidental trashing of GRASS
 .gisrc files and locations is not a problem.}
 
-\item{use_g.dirseps.exe}{default TRUE; when TRUE appears to work for WinGRASS
-Native binaries, when FALSE for QGIS GRASS binaries; ignored on other
-platforms.}
+\item{use_g.dirseps.exe}{default TRUE; whether Windows paths should be
+normalized. The argument name is retained for compatibility, but path
+normalization is performed by R and no longer invokes \code{g.dirseps.exe}.
+Ignored on other platforms.}
 
 \item{pid}{default \code{as.integer(round(runif(1, 1, 1000)))}, integer used
 to identify GIS_LOCK; the value here is arbitrary, but probably should be
