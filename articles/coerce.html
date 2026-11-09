@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Coercion between object formats • rgrass</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Coercion between object formats">
 </head>
@@ -71,16 +71,16 @@ Bivand</h4>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The original R-GRASS interface <span class="citation">(R. S. Bivand
-2000; Neteler and Mitasova 2008)</span> was designed to move raster and
-later vector data between R and GRASS GIS. To do this, use was made of
+<p>The original R-GRASS interface <span class="citation">(Bivand 2000;
+Neteler and Mitasova 2008)</span> was designed to move raster and later
+vector data between R and GRASS GIS. To do this, use was made of
 intermediate files, often using the external GDAL library on both sides.
 On the R side, the <strong>rgdal</strong> now archived package was used,
 interfacing GDAL and PROJ as GRASS GIS also did. The GRASS commands
 <code>r.in.gdal</code>, <code>r.out.gdal</code>, <code>v.in.ogr</code>
 and <code>v.out.ogr</code> were matched by <strong>rgdal</strong>
 functions using the same underlying external libraries:</p>
-<p><img src="fig1.png" width="500"></p>
+<p><img src="fig1.png" class="r-plt" alt="" width="500"></p>
 <p>GDAL was supplemented for raster data by simply reading and writing
 uncompressed binary files using <code>r.in.bin</code> and
 <code>r.out.bin</code>, with custom functions on the R side. As then
@@ -96,7 +96,7 @@ important external libraries. The workhorse driver is known as
 uses GDAL but writes a flat uncompressed binary file. Using
 <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> also appears to preserve category names and
 colour tables, but needs further testing (see (<a href="https://github.com/osgeo/rgrass/issues/42" class="external-link uri">https://github.com/osgeo/rgrass/issues/42</a>)).</p>
-<p><img src="fig2_p7_RRASTER_GRASS.png" width="500"></p>
+<p><img src="fig2_p7_RRASTER_GRASS.png" class="r-plt" alt="" width="500"></p>
 <p>From GDAL 3.5.0, the <code>RRASTER</code> driver also supports
 WKT2_2019 CRS representations; in earlier versions of GDAL, the driver
 only supported the proj-string representation (<a href="https://github.com/osgeo/rgrass/issues/51" class="external-link uri">https://github.com/osgeo/rgrass/issues/51</a>).</p>
@@ -116,7 +116,7 @@ package building, some code blocks will not be displayed.</p>
 version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://rspatial.org/" class="external-link">"terra"</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra 1.8.60</span></span></code></pre>
+<pre><code><span><span class="co">## terra 1.9.50</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-spatial.github.io/sf/" class="external-link">"sf"</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span></code></pre>
@@ -131,8 +131,8 @@ version:</p>
 libraries being used by <strong>terra</strong>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/gdal.html" class="external-link">gdal</a></span><span class="op">(</span>lib <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##     gdal     proj     geos </span></span>
-<span><span class="co">##  "3.4.1"  "8.2.1" "3.10.2"</span></span></code></pre>
+<pre><code><span><span class="co">##    gdal  proj   geos   TBB</span></span>
+<span><span class="co">## 1 3.4.1 8.2.1 3.10.2 FALSE</span></span></code></pre>
 <p>When using CRAN binary packages built static for Windows and macOS,
 the R packages will use the same versions of the external libraries, but
 not necessarily the same versions as those against which GRASS was
@@ -150,17 +150,18 @@ object is needed for <code><a href="../reference/read_VECT.html">write_VECT()</a
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"ex/lux.shp"</span>, package <span class="op">=</span> <span class="st">"terra"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">fv</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  class       : SpatVector </span></span>
-<span><span class="co">##  geometry    : polygons </span></span>
-<span><span class="co">##  dimensions  : 12, 6  (geometries, attributes)</span></span>
-<span><span class="co">##  extent      : 5.74414, 6.528252, 49.44781, 50.18162  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">##  source      : lux.shp</span></span>
-<span><span class="co">##  coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">##  names       :  ID_1   NAME_1  ID_2   NAME_2  AREA       POP</span></span>
-<span><span class="co">##  type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt;     &lt;num&gt;</span></span>
-<span><span class="co">##  values      :     1 Diekirch     1 Clervaux   312 1.808e+04</span></span>
-<span><span class="co">##                    1 Diekirch     2 Diekirch   218 3.254e+04</span></span>
-<span><span class="co">##                    1 Diekirch     3  Redange   259 1.866e+04</span></span></code></pre>
+<pre><code><span><span class="co">## class       : SpatVector</span></span>
+<span><span class="co">## geometry    : polygons</span></span>
+<span><span class="co">## dimensions  : 12, 6  (geometries, attributes)</span></span>
+<span><span class="co">## extent      : 5.74414, 6.528252, 49.44781, 50.18162  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">## source      : lux.shp</span></span>
+<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
+<span><span class="co">## names       :  ID_1   NAME_1  ID_2   NAME_2  AREA   POP</span></span>
+<span><span class="co">## type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span><span class="co">## values      :     1 Diekirch     1 Clervaux   312 18081</span></span>
+<span><span class="co">##                   1 Diekirch     2 Diekirch   218 32543</span></span>
+<span><span class="co">##                   1 Diekirch     3  Redange   259 18664</span></span>
+<span><span class="co">##               ...</span></span></code></pre>
 <p>These objects are always held in memory, so there is no
 <code><a href="https://rspatial.github.io/terra/reference/sources.html" class="external-link">inMemory()</a></code> method:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -226,16 +227,17 @@ object is needed for <code><a href="../reference/read_VECT.html">write_VECT()</a
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v_sf_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">v_sf</span><span class="op">)</span></span>
 <span><span class="va">v_sf_rt</span></span></code></pre></div>
-<pre><code><span><span class="co">##  class       : SpatVector </span></span>
-<span><span class="co">##  geometry    : polygons </span></span>
-<span><span class="co">##  dimensions  : 12, 6  (geometries, attributes)</span></span>
-<span><span class="co">##  extent      : 5.74414, 6.528252, 49.44781, 50.18162  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">##  coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">##  names       :  ID_1   NAME_1  ID_2   NAME_2  AREA       POP</span></span>
-<span><span class="co">##  type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt;     &lt;num&gt;</span></span>
-<span><span class="co">##  values      :     1 Diekirch     1 Clervaux   312 1.808e+04</span></span>
-<span><span class="co">##                    1 Diekirch     2 Diekirch   218 3.254e+04</span></span>
-<span><span class="co">##                    1 Diekirch     3  Redange   259 1.866e+04</span></span></code></pre>
+<pre><code><span><span class="co">## class       : SpatVector</span></span>
+<span><span class="co">## geometry    : polygons</span></span>
+<span><span class="co">## dimensions  : 12, 6  (geometries, attributes)</span></span>
+<span><span class="co">## extent      : 5.74414, 6.528252, 49.44781, 50.18162  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
+<span><span class="co">## names       :  ID_1   NAME_1  ID_2   NAME_2  AREA   POP</span></span>
+<span><span class="co">## type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span><span class="co">## values      :     1 Diekirch     1 Clervaux   312 18081</span></span>
+<span><span class="co">##                   1 Diekirch     2 Diekirch   218 32543</span></span>
+<span><span class="co">##                   1 Diekirch     3  Redange   259 18664</span></span>
+<span><span class="co">##               ...</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">v_sf_rt</span>, <span class="va">v</span>, check.attributes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
@@ -245,9 +247,9 @@ object is needed for <code><a href="../reference/read_VECT.html">write_VECT()</a
 <code>"Spatial"</code><a class="anchor" aria-label="anchor" href="#spatial"></a>
 </h3>
 <p>To coerce to and from vector classes defined in the
-<strong>sp</strong> package <span class="citation">(Roger S. Bivand,
-Pebesma, and Gomez-Rubio 2013)</span>, methods in
-<strong>raster</strong> are used as an intermediate step:</p>
+<strong>sp</strong> package <span class="citation">(Bivand et al.
+2013)</span>, methods in <strong>raster</strong> are used as an
+intermediate step:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html" class="external-link">as</a></span><span class="op">(</span><span class="va">v</span>, <span class="st">"Spatial"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">v_sp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -259,24 +261,25 @@ Pebesma, and Gomez-Rubio 2013)</span>, methods in
 <span><span class="co">## Is projected: FALSE </span></span>
 <span><span class="co">## proj4string : [+proj=longlat +datum=WGS84 +no_defs]</span></span>
 <span><span class="co">## Data attributes:</span></span>
-<span><span class="co">##       ID_1          NAME_1               ID_2          NAME_2         </span></span>
-<span><span class="co">##  Min.   :1.000   Length:12          Min.   : 1.00   Length:12         </span></span>
-<span><span class="co">##  1st Qu.:1.000   Class :character   1st Qu.: 3.75   Class :character  </span></span>
-<span><span class="co">##  Median :2.000   Mode  :character   Median : 6.50   Mode  :character  </span></span>
-<span><span class="co">##  Mean   :1.917                      Mean   : 6.50                     </span></span>
-<span><span class="co">##  3rd Qu.:3.000                      3rd Qu.: 9.25                     </span></span>
-<span><span class="co">##  Max.   :3.000                      Max.   :12.00                     </span></span>
-<span><span class="co">##       AREA            POP        </span></span>
-<span><span class="co">##  Min.   : 76.0   Min.   :  5163  </span></span>
-<span><span class="co">##  1st Qu.:187.2   1st Qu.: 18518  </span></span>
-<span><span class="co">##  Median :225.5   Median : 26097  </span></span>
-<span><span class="co">##  Mean   :213.4   Mean   : 50167  </span></span>
-<span><span class="co">##  3rd Qu.:253.0   3rd Qu.: 36454  </span></span>
-<span><span class="co">##  Max.   :312.0   Max.   :182607</span></span></code></pre>
+<span><span class="co">##       ID_1             NAME_1        ID_2             NAME_2        AREA      </span></span>
+<span><span class="co">##  Min.   :1.000   Length   :12   Min.   : 1.00   Length   :12   Min.   : 76.0  </span></span>
+<span><span class="co">##  1st Qu.:1.000   N.unique : 3   1st Qu.: 3.75   N.unique :12   1st Qu.:187.2  </span></span>
+<span><span class="co">##  Median :2.000   N.blank  : 0   Median : 6.50   N.blank  : 0   Median :225.5  </span></span>
+<span><span class="co">##  Mean   :1.917   Min.nchar: 8   Mean   : 6.50   Min.nchar: 5   Mean   :213.4  </span></span>
+<span><span class="co">##  3rd Qu.:3.000   Max.nchar:12   3rd Qu.: 9.25   Max.nchar:16   3rd Qu.:253.0  </span></span>
+<span><span class="co">##  Max.   :3.000                  Max.   :12.00                  Max.   :312.0  </span></span>
+<span><span class="co">##       POP        </span></span>
+<span><span class="co">##  Min.   :  5163  </span></span>
+<span><span class="co">##  1st Qu.: 18518  </span></span>
+<span><span class="co">##  Median : 26097  </span></span>
+<span><span class="co">##  Mean   : 50167  </span></span>
+<span><span class="co">##  3rd Qu.: 36454  </span></span>
+<span><span class="co">##  Max.   :182607</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v_sp_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">v_sp</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">v_sp_rt</span>, <span class="va">v</span>, check.attributes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
+<pre><code><span><span class="co">## different crs</span></span></code></pre>
+<pre><code><span><span class="co">## [1] FALSE</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -288,21 +291,21 @@ Pebesma, and Gomez-Rubio 2013)</span>, methods in
 <code><a href="../reference/read_RAST.html">read_RAST()</a></code> is used, a <code>"SpatRaster"</code> object is
 returned, and the same class of object is needed for
 <code><a href="../reference/read_RAST.html">write_RAST()</a></code> for writing to GRASS.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"ex/elev.tif"</span>, package <span class="op">=</span> <span class="st">"terra"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">fr</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 90, 95, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.008333333, 0.008333333  (x, y)</span></span>
 <span><span class="co">## extent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">## source      : elev.tif </span></span>
-<span><span class="co">## name        : elevation </span></span>
-<span><span class="co">## min value   :       141 </span></span>
+<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
+<span><span class="co">## source      : elev.tif</span></span>
+<span><span class="co">## name        : elevation</span></span>
+<span><span class="co">## min value   :       141</span></span>
 <span><span class="co">## max value   :       547</span></span></code></pre>
 <p>In general, <code>"SpatRaster"</code> objects are files, rather than
 data held in memory:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sources.html" class="external-link">inMemory</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] FALSE</span></span></code></pre>
 <div class="section level3">
@@ -312,31 +315,31 @@ data held in memory:</p>
 <p>The <strong>stars</strong> package <span class="citation">(Pebesma
 2021)</span> uses GDAL through <strong>sf</strong>. A coercion method is
 provided from <code>"SpatRaster"</code> to <code>"stars"</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r_stars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html" class="external-link">st_as_stars</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r_stars</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## stars object with 2 dimensions and 1 attribute</span></span>
 <span><span class="co">## attribute(s):</span></span>
-<span><span class="co">##           Min. 1st Qu. Median     Mean 3rd Qu. Max. NA's</span></span>
+<span><span class="co">##           Min. 1st Qu. Median     Mean 3rd Qu. Max.  NAs</span></span>
 <span><span class="co">## elev.tif   141     291    333 348.3366     406  547 3942</span></span>
 <span><span class="co">## dimension(s):</span></span>
 <span><span class="co">##   from to offset     delta refsys point x/y</span></span>
 <span><span class="co">## x    1 95  5.742  0.008333 WGS 84 FALSE [x]</span></span>
 <span><span class="co">## y    1 90  50.19 -0.008333 WGS 84 FALSE [y]</span></span></code></pre>
 <p>which round-trips in memory.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_stars_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">r_stars</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 90, 95, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.008333333, 0.008333333  (x, y)</span></span>
 <span><span class="co">## extent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
 <span><span class="co">## source(s)   : memory</span></span>
-<span><span class="co">## name        : elev.tif </span></span>
-<span><span class="co">## min value   :      141 </span></span>
+<span><span class="co">## name        : elev.tif</span></span>
+<span><span class="co">## min value   :      141</span></span>
 <span><span class="co">## max value   :      547</span></span></code></pre>
 <p>When coercing to <code>"stars_proxy"</code> the same applies:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_stars_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html" class="external-link">st_as_stars</a></span><span class="op">(</span><span class="va">r</span>, proxy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## stars_proxy object with 1 attribute in 1 file(s):</span></span>
 <span><span class="co">## $elev.tif</span></span>
@@ -348,16 +351,16 @@ provided from <code>"SpatRaster"</code> to <code>"stars"</code>:</p>
 <span><span class="co">## y    1 90  50.19 -0.008333 WGS 84 FALSE [y]</span></span></code></pre>
 <p>with coercion from <code>"stars_proxy"</code> also not reading data
 into memory:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_stars_p_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">r_stars_p</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 90, 95, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.008333333, 0.008333333  (x, y)</span></span>
 <span><span class="co">## extent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">## source      : elev.tif </span></span>
-<span><span class="co">## name        : elevation </span></span>
-<span><span class="co">## min value   :       141 </span></span>
+<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
+<span><span class="co">## source      : elev.tif</span></span>
+<span><span class="co">## name        : elevation</span></span>
+<span><span class="co">## min value   :       141</span></span>
 <span><span class="co">## max value   :       547</span></span></code></pre>
 </div>
 <div class="section level3">
@@ -368,7 +371,7 @@ into memory:</p>
 all GDAL operations. Because of this, coercing a
 <code>"SpatRaster"</code> object to a <code>"RasterLayer"</code> object
 is simple:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_RL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class      : RasterLayer </span></span>
 <span><span class="co">## dimensions : 90, 95, 8550  (nrow, ncol, ncell)</span></span>
@@ -378,12 +381,12 @@ is simple:</p>
 <span><span class="co">## source     : elev.tif </span></span>
 <span><span class="co">## names      : elevation </span></span>
 <span><span class="co">## values     : 141, 547  (min, max)</span></span></code></pre>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sources.html" class="external-link">inMemory</a></span><span class="op">(</span><span class="va">r_RL</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] FALSE</span></span></code></pre>
 <p>The WKT2-2019 CRS representation is present but not shown by
 default:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://edzer.github.io/sp/reference/is.projected.html" class="external-link">wkt</a></span><span class="op">(</span><span class="va">r_RL</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## GEOGCRS["unknown",</span></span>
 <span><span class="co">##     DATUM["World Geodetic System 1984",</span></span>
@@ -404,16 +407,16 @@ default:</p>
 <span><span class="co">##                 ID["EPSG",9122]]]]</span></span></code></pre>
 <p>This object (held on file rather than in memory) can be
 round-tripped:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_RL_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">r_RL</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 90, 95, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.008333333, 0.008333333  (x, y)</span></span>
 <span><span class="co">## extent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : +proj=longlat +datum=WGS84 +no_defs </span></span>
-<span><span class="co">## source      : elev.tif </span></span>
-<span><span class="co">## name        : elevation </span></span>
-<span><span class="co">## min value   :       141 </span></span>
+<span><span class="co">## coord. ref. : +proj=longlat +datum=WGS84 +no_defs</span></span>
+<span><span class="co">## source      : elev.tif</span></span>
+<span><span class="co">## name        : elevation</span></span>
+<span><span class="co">## min value   :       141</span></span>
 <span><span class="co">## max value   :       547</span></span></code></pre>
 </div>
 <div class="section level3">
@@ -423,7 +426,7 @@ round-tripped:</p>
 <p><code>"RasterLayer"</code> objects can be used for coercion from a
 <code>"SpatRaster"</code> object to a
 <code>"SpatialGridDataFrame"</code> object:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r_sp_RL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html" class="external-link">as</a></span><span class="op">(</span><span class="va">r_RL</span>, <span class="st">"SpatialGridDataFrame"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">r_sp_RL</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class SpatialGridDataFrame</span></span>
@@ -445,10 +448,10 @@ round-tripped:</p>
 <span><span class="co">##  Mean   :348.3  </span></span>
 <span><span class="co">##  3rd Qu.:406.0  </span></span>
 <span><span class="co">##  Max.   :547.0  </span></span>
-<span><span class="co">##  NA's   :3942</span></span></code></pre>
+<span><span class="co">##  NAs    :3942</span></span></code></pre>
 <p>The WKT2-2019 CRS representation is present but not shown by
 default:</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://edzer.github.io/sp/reference/is.projected.html" class="external-link">wkt</a></span><span class="op">(</span><span class="va">r_sp_RL</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## GEOGCRS["unknown",</span></span>
 <span><span class="co">##     DATUM["World Geodetic System 1984",</span></span>
@@ -469,7 +472,7 @@ default:</p>
 <span><span class="co">##                 ID["EPSG",9122]]]]</span></span></code></pre>
 <p>This object can be round-tripped, but use of <strong>raster</strong>
 forefronts the Proj.4 string CRS representation:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_sp_RL_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="va">r_sp_RL</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class      : RasterLayer </span></span>
 <span><span class="co">## dimensions : 90, 95, 8550  (nrow, ncol, ncell)</span></span>
@@ -479,7 +482,7 @@ forefronts the Proj.4 string CRS representation:</p>
 <span><span class="co">## source     : memory</span></span>
 <span><span class="co">## names      : elevation </span></span>
 <span><span class="co">## values     : 141, 547  (min, max)</span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://edzer.github.io/sp/reference/is.projected.html" class="external-link">wkt</a></span><span class="op">(</span><span class="va">r_sp_RL_rt</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## GEOGCRS["unknown",</span></span>
 <span><span class="co">##     DATUM["World Geodetic System 1984",</span></span>
@@ -498,18 +501,18 @@ forefronts the Proj.4 string CRS representation:</p>
 <span><span class="co">##             ORDER[2],</span></span>
 <span><span class="co">##             ANGLEUNIT["degree",0.0174532925199433,</span></span>
 <span><span class="co">##                 ID["EPSG",9122]]]]</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_sp_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">r_sp_RL_rt</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 90, 95, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.008333333, 0.008333333  (x, y)</span></span>
 <span><span class="co">## extent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : +proj=longlat +datum=WGS84 +no_defs </span></span>
+<span><span class="co">## coord. ref. : +proj=longlat +datum=WGS84 +no_defs</span></span>
 <span><span class="co">## source(s)   : memory</span></span>
-<span><span class="co">## name        : elevation </span></span>
-<span><span class="co">## min value   :       141 </span></span>
+<span><span class="co">## name        : elevation</span></span>
+<span><span class="co">## min value   :       141</span></span>
 <span><span class="co">## max value   :       547</span></span></code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html" class="external-link">crs</a></span><span class="op">(</span><span class="va">r_sp_RL_rt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Coordinate Reference System:</span></span>
 <span><span class="co">## Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs </span></span>
@@ -534,7 +537,7 @@ forefronts the Proj.4 string CRS representation:</p>
 <p>Coercion to the <strong>sp</strong>
 <code>"SpatialGridDataFrame"</code> representation is also provided by
 <strong>stars</strong>:</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r_sp_stars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html" class="external-link">as</a></span><span class="op">(</span><span class="va">r_stars</span>, <span class="st">"Spatial"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">r_sp_stars</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class SpatialGridDataFrame</span></span>
@@ -556,8 +559,8 @@ forefronts the Proj.4 string CRS representation:</p>
 <span><span class="co">##  Mean   :348.3  </span></span>
 <span><span class="co">##  3rd Qu.:406.0  </span></span>
 <span><span class="co">##  Max.   :547.0  </span></span>
-<span><span class="co">##  NA's   :3942</span></span></code></pre>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<span><span class="co">##  NAs    :3942</span></span></code></pre>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://edzer.github.io/sp/reference/is.projected.html" class="external-link">wkt</a></span><span class="op">(</span><span class="va">r_sp_stars</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## GEOGCRS["WGS 84",</span></span>
 <span><span class="co">##     DATUM["World Geodetic System 1984",</span></span>
@@ -574,19 +577,19 @@ forefronts the Proj.4 string CRS representation:</p>
 <span><span class="co">##             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
 <span><span class="co">##     ID["EPSG",4326]]</span></span></code></pre>
 <p>and can be round-tripped:</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">r_sp_stars_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html" class="external-link">st_as_stars</a></span><span class="op">(</span><span class="va">r_sp_stars</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 90, 95, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.008333333, 0.008333333  (x, y)</span></span>
 <span><span class="co">## extent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">## coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
 <span><span class="co">## source(s)   : memory</span></span>
-<span><span class="co">## name        : elev.tif </span></span>
-<span><span class="co">## min value   :      141 </span></span>
+<span><span class="co">## name        : elev.tif</span></span>
+<span><span class="co">## min value   :      141</span></span>
 <span><span class="co">## max value   :      547</span></span></code></pre>
 <p>``</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html" class="external-link">crs</a></span><span class="op">(</span><span class="va">r_sp_rt</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## GEOGCRS["unknown",</span></span>
 <span><span class="co">##     DATUM["World Geodetic System 1984",</span></span>
@@ -610,7 +613,7 @@ forefronts the Proj.4 string CRS representation:</p>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bivand:00" class="csl-entry">
 Bivand, R. S. 2000. <span>“Using the <span>R</span> Statistical Data
 Analysis Language on <span>GRASS</span> 5.0 <span>GIS</span> Data Base
@@ -626,13 +629,13 @@ Hijmans, Robert J. 2022a. <em><span class="nocase">raster</span>:
 Geographic Data Analysis and Modeling</em>. <a href="https://cran.r-project.org/package=raster" class="external-link">https://cran.r-project.org/package=raster</a>.
 </div>
 <div id="ref-terra" class="csl-entry">
-———. 2022b. <em><span class="nocase">terra</span>: Spatial Data
-Analysis</em>. <a href="https://cran.r-project.org/package=terra" class="external-link">https://cran.r-project.org/package=terra</a>.
+Hijmans, Robert J. 2022b. <em><span class="nocase">terra</span>: Spatial
+Data Analysis</em>. <a href="https://cran.r-project.org/package=terra" class="external-link">https://cran.r-project.org/package=terra</a>.
 </div>
 <div id="ref-neteler+mitasova:08" class="csl-entry">
 Neteler, M., and H. Mitasova. 2008. <em>Open Source <span>GIS</span>: A
-<span>GRASS</span> <span>GIS</span> Approach, Third Edition</em>. New
-York: Springer.
+<span>GRASS</span> <span>GIS</span> Approach, Third Edition</em>.
+Springer.
 </div>
 <div id="ref-sf-rj" class="csl-entry">
 Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for
@@ -641,12 +644,12 @@ Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46.
 <a href="https://doi.org/10.32614/RJ-2018-009" class="external-link">https://doi.org/10.32614/RJ-2018-009</a>.
 </div>
 <div id="ref-stars" class="csl-entry">
-———. 2021. <em><span class="nocase">stars</span>: Spatiotemporal Arrays,
-Raster and Vector Data Cubes</em>. <a href="https://CRAN.R-project.org/package=stars" class="external-link">https://CRAN.R-project.org/package=stars</a>.
+Pebesma, Edzer. 2021. <em><span class="nocase">stars</span>:
+Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://CRAN.R-project.org/package=stars" class="external-link">https://CRAN.R-project.org/package=stars</a>.
 </div>
 <div id="ref-sf" class="csl-entry">
-———. 2022. <em><span class="nocase">sf</span>: Simple Features for
-<span>R</span></em>. <a href="https://cran.r-project.org/package=sf" class="external-link">https://cran.r-project.org/package=sf</a>.
+Pebesma, Edzer. 2022. <em><span class="nocase">sf</span>: Simple
+Features for <span>R</span></em>. <a href="https://cran.r-project.org/package=sf" class="external-link">https://cran.r-project.org/package=sf</a>.
 </div>
 </div>
 </div>
@@ -661,7 +664,7 @@ Raster and Vector Data Cubes</em>. <a href="https://CRAN.R-project.org/package=s
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

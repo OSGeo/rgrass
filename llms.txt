@@ -1,0 +1,97 @@
+# rgrass
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rgrass)](https://CRAN.R-project.org/package=rgrass)
+[![codecov](https://codecov.io/gh/OSGeo/rgrass/graph/badge.svg?token=IP7nhufbRQ)](https://codecov.io/gh/OSGeo/rgrass)
+
+### Interface Between GRASS Geographical Information System and R
+
+Interpreted interface between GRASS geographical information system and
+R, based on starting R from within the GRASS GIS environment, or running
+free-standing R in a temporary or existing GRASS location; the package
+provides facilities for using all GRASS commands from the R command
+line, see <https://osgeo.github.io/rgrass/articles/use.html>.
+
+The original interface **GRASS** package for `GRASS 5` (2000-2010) is
+described in Bivand (2000)
+(<https://doi.org/10.1016/S0098-3004(00)00057-1>) and Bivand (2001)
+(<https://www.r-project.org/conferences/DSC-2001/Proceedings/Bivand.pdf>).
+This was succeeded by **spgrass6** for `GRASS 6` (2006-2016) and
+**rgrass7** for `GRASS 7` (2015-2023). The **rgrass** package modernizes
+the interface for `GRASS 8` while still permitting the use of `GRASS 7`.
+
+### Installation
+
+This package depends on [GRASS GIS](https://grass.osgeo.org/) version 8
+or above (later version 7 should also be OK).
+
+If you use OSGeo4W on Windows (recommended), remember that you must
+start RStudio, Rgui or console R from within the OSGeo4W shell.
+
+See the [workshop on **rgrass** at FOSS4G
+2022](https://rsbivand.github.io/foss4g_2022/modernizing_220822.html)
+for a detailed introduction with reproducible examples.
+
+If you would like to contribute, please see the CONTRIBUTING file in the
+.github folder.
+
+For detailed notes, see
+<https://rsbivand.github.io/foss4g_2022/modernizing_220822.html>.
+
+# Package index
+
+## All functions
+
+- [`execGRASS()`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  [`stringexecGRASS()`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  [`doGRASS()`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  [`parseGRASS()`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  [`print(`*`<GRASS_interface_desc>`*`)`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  [`getXMLencoding()`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  [`setXMLencoding()`](https://osgeo.github.io/rgrass/reference/execGRASS.md)
+  : Run GRASS commands
+- [`gmeta()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`getLocationProj()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`gmeta2grd()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`print(`*`<gmeta>`*`)`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.ignore.stderrOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.stop_on_no_flags_parasOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.echoCmdOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.useInternOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.legacyExecOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.defaultFlagsOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`get.suppressEchoCmdInFuncOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.ignore.stderrOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.stop_on_no_flags_parasOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.echoCmdOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.useInternOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.legacyExecOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.defaultFlagsOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  [`set.suppressEchoCmdInFuncOption()`](https://osgeo.github.io/rgrass/reference/gmeta.md)
+  : Reads GRASS metadata from the current LOCATION
+- [`initGRASS()`](https://osgeo.github.io/rgrass/reference/initGRASS.md)
+  [`get.GIS_LOCK()`](https://osgeo.github.io/rgrass/reference/initGRASS.md)
+  [`set.GIS_LOCK()`](https://osgeo.github.io/rgrass/reference/initGRASS.md)
+  [`unset.GIS_LOCK()`](https://osgeo.github.io/rgrass/reference/initGRASS.md)
+  [`unlink_.gislock()`](https://osgeo.github.io/rgrass/reference/initGRASS.md)
+  [`remove_GISRC()`](https://osgeo.github.io/rgrass/reference/initGRASS.md)
+  : Initiate GRASS session
+- [`read_RAST()`](https://osgeo.github.io/rgrass/reference/read_RAST.md)
+  [`write_RAST()`](https://osgeo.github.io/rgrass/reference/read_RAST.md)
+  : Read and write GRASS raster files
+- [`read_VECT()`](https://osgeo.github.io/rgrass/reference/read_VECT.md)
+  [`write_VECT()`](https://osgeo.github.io/rgrass/reference/read_VECT.md)
+  [`vInfo()`](https://osgeo.github.io/rgrass/reference/read_VECT.md)
+  [`vColumns()`](https://osgeo.github.io/rgrass/reference/read_VECT.md)
+  [`vDataCount()`](https://osgeo.github.io/rgrass/reference/read_VECT.md)
+  [`vect2neigh()`](https://osgeo.github.io/rgrass/reference/read_VECT.md)
+  : Read and write GRASS vector object files
+
+# Articles
+
+### All vignettes
+
+- [Coercion between object
+  formats](https://osgeo.github.io/rgrass/articles/coerce.md):
+- [Use of GRASS
+  interface](https://osgeo.github.io/rgrass/articles/use.md):

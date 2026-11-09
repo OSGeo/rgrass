@@ -7,12 +7,24 @@
 <url><loc>https://osgeo.github.io/rgrass/authors.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/index.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/news/index.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/create_session_directories.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/execGRASS.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/gmeta.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/grass_version.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/index.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/initGRASS.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/read_RAST.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/read_VECT.html</loc></url>
 <url><loc>https://osgeo.github.io/rgrass/reference/rgrass.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/search_grass.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/set_addons_path.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/set_grass_python.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/set_home_path.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/set_path_variable.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/setup_runtime_env_unix.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/setup_runtime_env_windows.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/validate_gisbase.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/write_gisrc.html</loc></url>
+<url><loc>https://osgeo.github.io/rgrass/reference/write_wind.html</loc></url>
 </urlset>
 
